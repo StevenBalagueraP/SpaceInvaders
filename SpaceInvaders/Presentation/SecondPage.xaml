@@ -9,28 +9,38 @@
       xmlns:um="using:Uno.Material"
       Background="{ThemeResource BackgroundBrush}">
 
-  <Grid utu:SafeArea.Insets="VisibleBounds">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" />
-      <RowDefinition />
-    </Grid.RowDefinitions>
-    <utu:NavigationBar Content="Second Page">
-      <utu:NavigationBar.MainCommand>
-        <AppBarButton>
-          <AppBarButton.Icon>
-            <BitmapIcon UriSource="ms-appx:///Assets/Images/back.png" />
-          </AppBarButton.Icon>
-        </AppBarButton>
-      </utu:NavigationBar.MainCommand>
-    </utu:NavigationBar>
-    <StackPanel Grid.Row="1"
+    <Grid utu:SafeArea.Insets="VisibleBounds">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <utu:NavigationBar Content="Second Page">
+            <utu:NavigationBar.MainCommand>
+                <AppBarButton>
+                    <AppBarButton.Icon>
+                        <BitmapIcon UriSource="ms-appx:///Assets/Images/back.png" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </utu:NavigationBar.MainCommand>
+        </utu:NavigationBar>
+        <StackPanel Grid.Row="1"
           HorizontalAlignment="Center"
           VerticalAlignment="Center">
-      <TextBlock Text="{Binding Entity.Name}"
+            <TextBlock Text="{Binding Entity.Name}"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Margin="8" />
-    </StackPanel>
 
-  </Grid>
+            <!-- Aquí se ha agregado el texto "Hola" -->
+            <TextBlock Text="Hola"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Margin="8" FontSize="24" />
+
+            <Button Content="Play"
+AutomationProperties.AutomationId="MainPageButton" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="60" FontSize="24" Background="{ThemeResource AccentBrush}" Foreground="White"
+Click="GoToMain"/>
+        </StackPanel>
+
+    </Grid>
 </Page>

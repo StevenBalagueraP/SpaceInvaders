@@ -7,24 +7,59 @@
       xmlns:um="using:Uno.Material"
       NavigationCacheMode="Required"
       Background="{ThemeResource BackgroundBrush}">
-  <ScrollViewer>
-    <Grid utu:SafeArea.Insets="VisibleBounds">
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition />
-      </Grid.RowDefinitions>
-      <utu:NavigationBar Content="{Binding Title}" />
 
-      <StackPanel Grid.Row="1"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Spacing="16">
-        <TextBox Text="{Binding Name, Mode=TwoWay}"
-            PlaceholderText="Enter your name:" />
-        <Button Content="Go to Second Page"
-            AutomationProperties.AutomationId="SecondPageButton"
-            Command="{Binding GoToSecond}" />
-      </StackPanel>
-    </Grid>
-  </ScrollViewer>
+    <Page.Resources>
+        <!-- Definir el ImageBrush para el fondo -->
+        <ImageBrush x:Key="BackgroundImage" ImageSource="ms-appx:///Assets/Images/mainPhoto.png" Stretch="Fill"/>
+    </Page.Resources>
+
+    <ScrollViewer>
+        <Grid Background="{StaticResource BackgroundImage}" utu:SafeArea.Insets="VisibleBounds">
+
+            <!-- Canvas para posicionar elementos -->
+            <Canvas x:Name="MainCanvas">
+                <Image x:Name="PlayerImage"
+           Source="ms-appx:///Assets/Images/ShootingStar_Menu.png"
+           Width="100"
+           Height="100"
+           Canvas.Left="200"
+           Canvas.Top="0"/>
+                <!-- Inicialmente en Y=400 -->
+            </Canvas>
+
+            <!-- Botones -->
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="16">
+                <Button Content="Play"
+                        AutomationProperties.AutomationId="SecondPageButton"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Width="200"
+                        Height="60"
+                        FontSize="24"
+                        Background="{ThemeResource AccentBrush}"
+                        Foreground="White"
+                        Click="GoToSecond" />
+
+                <Button Content="Settings"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Width="200"
+                        Height="60"
+                        FontSize="24"
+                        Background="{ThemeResource AccentBrush}"
+                        Foreground="White"
+                        Command="{Binding OnSettingsButtonClicked}" />
+
+                <Button Content="Score"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Width="200"
+                        Height="60"
+                        FontSize="24"
+                        Background="{ThemeResource AccentBrush}"
+                        Foreground="White"
+                        Command="{Binding OnScoreButtonClicked}" />
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </Page>
