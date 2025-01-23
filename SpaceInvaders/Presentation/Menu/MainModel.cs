@@ -1,5 +1,6 @@
 namespace SpaceInvaders.Presentation;
 
+
 public partial record MainModel
 {
     private INavigator _navigator;

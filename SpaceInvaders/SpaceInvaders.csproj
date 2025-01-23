@@ -47,5 +47,10 @@
       ThemeService;
     </UnoFeatures>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="Presentation\Game\StartGame.xaml.cs">
+      <DependentUpon>StartGame.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 
 </Project>

@@ -4,9 +4,9 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace SpaceInvaders.Presentation;
 
-public sealed partial class SecondPage : Page
+public sealed partial class StartGame : Page
 {
-    public SecondPage()
+    public StartGame()
     {
         this.InitializeComponent();
     }
