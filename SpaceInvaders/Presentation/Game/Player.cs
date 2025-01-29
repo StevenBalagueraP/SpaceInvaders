@@ -8,17 +8,25 @@ namespace SpaceInvaders.Presentation.Game
         private int _y;
         private string _imagePath;
         private Canvas _canvas;
+        private int _lives;
 
         public Player(string imagePath, Canvas canvas)
         {
             _imagePath = imagePath;
             _canvas = canvas;
             CenterPlayer(); 
+            _lives = 3;
         }
 
         public int X { get { return _x; } }
         public int Y { get { return _y; } }
         public string ImagePath { get { return _imagePath; } }
+
+        public int Lives
+        {
+            get { return _lives; }
+            set { _lives = value; }
+        }
 
         public void LoadImage()
         {
@@ -44,7 +52,7 @@ namespace SpaceInvaders.Presentation.Game
             int playerHeight = 90;
 
             _x = (int)((canvasWidth - playerWidth) / 2);
-            _y = (int)((canvasHeight - playerHeight) / 2) + 220;
+            _y = (int)((canvasHeight - playerHeight) / 2) + 250;
         }
     }
 }
