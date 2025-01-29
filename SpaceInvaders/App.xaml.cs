@@ -1,3 +1,4 @@
+using SpaceInvaders.ViewModel;
 using Uno.Resizetizer;
 
 namespace SpaceInvaders;
@@ -96,7 +97,7 @@ public partial class App : Application
         views.Register(
             new ViewMap(ViewModel: typeof(ShellModel)),
             new ViewMap<MainPage, MainModel>(),
-            new DataViewMap<StartGame, SecondModel, Entity>()
+            new DataViewMap<StartGame, GameViewModel, Entity>()
         );
 
         routes.Register(
@@ -104,7 +105,7 @@ public partial class App : Application
                 Nested:
                 [
                     new ("Main", View: views.FindByViewModel<MainModel>(), IsDefault:true),
-                    new ("Second", View: views.FindByViewModel<SecondModel>()),
+                    new ("Second", View: views.FindByViewModel<GameViewModel>()),
                 ]
             )
         );
