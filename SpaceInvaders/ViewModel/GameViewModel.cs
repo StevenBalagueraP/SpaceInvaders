@@ -24,9 +24,9 @@ namespace SpaceInvaders.ViewModel
             get => $"Lives: {_player.Lives}";
         }
 
-        public void IncreaseScore()
+        public void IncreaseScore(int score)
         {
-            _score.incrementScore();
+            _score.incrementScore(score);
             OnpropertyChanged(nameof(ScoreText));
             Console.WriteLine(ScoreText);
         }

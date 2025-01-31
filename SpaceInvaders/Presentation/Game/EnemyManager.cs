@@ -1,13 +1,16 @@
-﻿using Microsoft.UI.Xaml.Media.Imaging;
-using Windows.Media.Devices.Core;
-
-namespace SpaceInvaders.Presentation.Game;
+﻿namespace SpaceInvaders.Presentation.Game;
 
 internal class EnemyManager
 {
-    List<Enemy> _enemies;
-    Canvas _canvas;
-    bool isFinishedRound;
+    private List<Enemy> _enemies;
+    private Canvas _canvas;
+    private bool isFinishedRound;
+
+    public List<Enemy> Enemies
+    {
+        get { return _enemies; }
+        set { _enemies = value; }
+    }
 
 
 
@@ -17,16 +20,17 @@ internal class EnemyManager
         isFinishedRound = false;
         _canvas = canvas;
     }
-    public void UpdateEnemies()
-    {
-
-    }
     public void SpawnBoss()
     {
 
     }
     public void ResetEnemies()
     {
+        if (Enemies.Count == 0)
+        {
+            isFinishedRound=false;
+            GenerateNewRound(5, 3);
+        }
 
     }
     public void GenerateNewRound(int rows, int columns)
@@ -37,12 +41,9 @@ internal class EnemyManager
         int enemyHeight = 30;
         int spacing = 10;
 
-        int totalRowWidth = (columns * (enemyWidth + spacing)) - spacing;
-        int initialX = (canvasWidth - totalRowWidth) / 2;
+        int initialX = -110;
 
-        int totalEnemiesHeight = (rows * (enemyHeight + spacing)) - spacing;
-
-        int initialY = canvasHeight - totalEnemiesHeight - 120;
+        int initialY = 25;
 
         int speed = 5;
 
@@ -54,7 +55,7 @@ internal class EnemyManager
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    Enemy enemy = null;
+                    Enemy? enemy = null;
 
                     if (i == 1)
                     {
@@ -86,21 +87,9 @@ internal class EnemyManager
                     }
 
                     _enemies.Add(enemy);
-
-                    Image enemyImage = new Image
-                    {
-                        Source = new BitmapImage(new Uri(enemy.ImagePath)),
-                        Width = enemyWidth,
-                        Height = enemyHeight
-                    };
-
-                    Canvas.SetLeft(enemyImage, enemy.X);
-                    Canvas.SetTop(enemyImage, enemy.Y);
-
-                    _canvas.Children.Add(enemyImage);
+                    enemy.addEnemy(enemyWidth, enemyHeight, _canvas);
                 }
             }
-            Console.WriteLine(_enemies.Count);
         }
     }
 

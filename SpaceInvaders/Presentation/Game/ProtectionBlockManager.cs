@@ -18,8 +18,8 @@ namespace SpaceInvaders.Presentation.Game
         }
         public void GenerateBlock(int numberBlocks)
         {
-            int initialX = -400;
-            int initialY = 100;
+            int initialX = -250;
+            int initialY = 600 - 200;
             if (!_isFinishedRound)
             {
                 _isFinishedRound = true;
@@ -38,7 +38,7 @@ namespace SpaceInvaders.Presentation.Game
                     Canvas.SetTop(protectionImage, protectionBlock.Y);
 
                     _canvas.Children.Add(protectionImage);
-                    initialX += 220;
+                    initialX += 250;
                     
                 }
             }

@@ -50,7 +50,8 @@
         <StackPanel Grid.Row="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-            <Canvas x:Name="GameCanvas">
+            <Canvas x:Name="GameCanvas" Width="400" Height="600">
+                
             </Canvas>
         </StackPanel>
     </Grid>
