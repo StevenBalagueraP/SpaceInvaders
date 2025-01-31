@@ -10,10 +10,12 @@ namespace SpaceInvaders.Presentation
 {
     public sealed partial class StartGame : Page
     {
-        private GameViewModel _gameViewModel;
+        private readonly GameViewModel _gameViewModel;
         private EnemyManager _enemyManager;
         private Player _player;
         private ProtectionBlockManager _protectionBlockManager;
+        private Bullet _currentBullet;
+
 
         public StartGame()
         {
@@ -31,8 +33,8 @@ namespace SpaceInvaders.Presentation
 
         public void generateObjects()
         {
-            _protectionBlockManager.GenerateBlock(4);
-            _enemyManager.GenerateNewRound(5, 15);
+            _protectionBlockManager.GenerateBlock(1);
+            _enemyManager.GenerateNewRound(5, 3);
             _player.LoadImage();
         }
 
@@ -43,14 +45,30 @@ namespace SpaceInvaders.Presentation
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _gameViewModel.IncreaseScore();
+            //_gameViewModel.IncreaseScore();
         }
 
         private void Grid_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            if (e.Key == VirtualKey.Space) 
+            if (e.Key == VirtualKey.Space)
             {
-                Console.WriteLine("disparo!");
+                if (_currentBullet == null || !_currentBullet.IsActive)
+                {
+                    _currentBullet = new Bullet(_player.X, _player.Y, "ms-appx:///Assets/Images/bulletImage.png", GameCanvas);
+                    _currentBullet.Move(_enemyManager, _gameViewModel); 
+                }
+                else
+                {
+                    Console.WriteLine("there is already an active bullet");
+                }
+            }
+            else if (e.Key == VirtualKey.Left)
+            {
+                _player.MoveLeft();
+            }
+            else if (e.Key == VirtualKey.Right)
+            {
+                _player.MoveRight();
             }
             else
             {

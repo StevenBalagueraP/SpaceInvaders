@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.UI.Xaml.Media.Imaging;
+
 namespace SpaceInvaders.Presentation.Game;
 
 internal abstract class Enemy
@@ -8,6 +10,7 @@ internal abstract class Enemy
     private int _speed;
     private string _imagePath;
     private int _points;
+    Image? enemyImage;
 
     public Enemy(int x, int y, int speed, string imagePath, int points)
     {
@@ -45,9 +48,25 @@ internal abstract class Enemy
         get { return _points; }
         set { _points = value; }
     }
+    public void RemoveEnemy(Canvas canvas)
+    {
+        canvas.Children.Remove(enemyImage);
+        enemyImage = null;
+    }
+    public void addEnemy(int enemyWidth, int enemyHeight, Canvas canvas)
+    {
+        enemyImage = new Image
+        {
+            Source = new BitmapImage(new Uri(ImagePath)),
+            Width = enemyWidth,
+            Height = enemyHeight
+        };
 
+        Canvas.SetLeft(enemyImage, X);
+        Canvas.SetTop(enemyImage, Y);
 
-
+        canvas.Children.Add(enemyImage);
+    }
     public void move()
     {
 

@@ -8,9 +8,9 @@ namespace SpaceInvaders.Models
         {
             get { return _scorePlayer; }
         }
-        public void incrementScore()
+        public void incrementScore(int score)
         {
-            _scorePlayer++;
+            _scorePlayer += score;
         }
     }
 }
