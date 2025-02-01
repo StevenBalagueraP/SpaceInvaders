@@ -1,17 +1,15 @@
 ﻿namespace SpaceInvaders.Presentation.Game;
 
-internal class EnemyManager
+public class EnemyManager
 {
-    private List<Enemy> _enemies;
+    private List<Enemy> _enemies; 
     private Canvas _canvas;
     private bool isFinishedRound;
 
     public List<Enemy> Enemies
     {
         get { return _enemies; }
-        set { _enemies = value; }
     }
-
 
 
     public EnemyManager(Canvas canvas)

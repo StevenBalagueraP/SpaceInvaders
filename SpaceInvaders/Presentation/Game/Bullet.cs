@@ -61,13 +61,13 @@ namespace SpaceInvaders.Presentation.Game
             }
         }
 
-        public void Move(EnemyManager enemyManager, GameViewModel gameViewModel)
+        public void Move(StartGame startGame)
         {
             GenerateImage();
 
             if (IsActive)
             {
-                _timer.Interval = TimeSpan.FromMilliseconds(10); // Tiempo fijo para el movimiento
+                _timer.Interval = TimeSpan.FromMilliseconds(10); 
                 _timer.Tick += (sender, e) =>
                 {
                     if (Y <= 0)
@@ -76,7 +76,13 @@ namespace SpaceInvaders.Presentation.Game
                         _canvas.Children.Remove(bulletImage);
                         IsActive = false;
                     }
-                    else if (CheckCollisions(enemyManager, gameViewModel))
+                    else if (CheckEnemyCollisions(startGame))
+                    {
+                        _timer.Stop();
+                        _canvas.Children.Remove(bulletImage);
+                        IsActive = false;
+                    }
+                    else if (CheckBlockCollitions(startGame))
                     {
                         _timer.Stop();
                         _canvas.Children.Remove(bulletImage);
@@ -93,19 +99,47 @@ namespace SpaceInvaders.Presentation.Game
             }
         }
 
-        public bool CheckCollisions(EnemyManager enemyManager, GameViewModel gameViewModel)
+        public bool CheckEnemyCollisions(StartGame startGame)
         {
-            foreach (Enemy enemy in enemyManager.Enemies)
+            foreach (Enemy enemy in startGame.EnemyManagerGame.Enemies)
             {
                 if (enemy.X >= X - 20 && enemy.X <= X + 20 && enemy.Y >= Y - 20 && enemy.Y <= Y + 20)
                 {
-                    gameViewModel.IncreaseScore(enemy.Points);
+                    startGame.ViewModelGame.IncreaseScore(enemy.Points);
                     enemy.RemoveEnemy(_canvas);
-                    enemyManager.Enemies.Remove(enemy);
-                    enemyManager.ResetEnemies();
-                    Console.WriteLine(enemyManager.Enemies.Count);
+                    startGame.EnemyManagerGame.Enemies.Remove(enemy);
+                    startGame.EnemyManagerGame.ResetEnemies();
+                    Console.WriteLine(startGame.EnemyManagerGame.Enemies.Count);
+                    if (startGame.ViewModelGame.ScorePlayer.ScorePlayer == 500)
+                    {
+                        startGame.Frame?.Navigate(typeof(MainPage));
+                    }
                     return true;
                 }
+            
+            }
+            return false;
+        }
+        public bool CheckBlockCollitions(StartGame startGame)
+        {
+            foreach (ProtectionBlock protectionBlock in startGame.ProtectionBlockManagerGame.ProtectionBlocks)
+            {
+                if (protectionBlock.X >= X - 80 && protectionBlock.X <= X + 5 && protectionBlock.Y >= Y - 30 && protectionBlock.Y <= Y + 30)
+                {
+                    if (protectionBlock.Healt < 2)
+                    {
+                        protectionBlock.RemoveBlock(_canvas);
+                        startGame.ProtectionBlockManagerGame.ProtectionBlocks.Remove(protectionBlock);
+                        return true;
+                    }
+                    else
+                    {
+                        protectionBlock.Healt -= 1;
+                        return true;
+
+                    } 
+                }
+
             }
             return false;
         }
