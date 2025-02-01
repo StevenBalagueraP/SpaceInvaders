@@ -3,7 +3,7 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace SpaceInvaders.Presentation.Game;
 
-internal abstract class Enemy
+public abstract class Enemy
 {
     private int _x;
     private int _y;

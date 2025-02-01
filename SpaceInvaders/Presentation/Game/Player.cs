@@ -2,7 +2,7 @@
 
 namespace SpaceInvaders.Presentation.Game
 {
-    internal class Player
+    public class Player
     {
         private int _x;
         private int _y;

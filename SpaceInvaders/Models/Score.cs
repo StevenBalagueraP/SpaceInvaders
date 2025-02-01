@@ -1,16 +1,15 @@
 ﻿
-namespace SpaceInvaders.Models
+namespace SpaceInvaders.Models;
+
+public class Score
 {
-    internal class Score
+    private int _scorePlayer;
+    public int ScorePlayer
     {
-        private int _scorePlayer;
-        public int ScorePlayer
-        {
-            get { return _scorePlayer; }
-        }
-        public void incrementScore(int score)
-        {
-            _scorePlayer += score;
-        }
+        get { return _scorePlayer; }
+    }
+    public void incrementScore(int score)
+    {
+        _scorePlayer += score;
     }
 }

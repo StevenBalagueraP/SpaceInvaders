@@ -1,7 +1,4 @@
-﻿using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Navigation;
+﻿using Microsoft.UI.Xaml.Input;
 using SpaceInvaders.Presentation.Game;
 using SpaceInvaders.ViewModel;
 using Windows.System;
@@ -10,12 +7,30 @@ namespace SpaceInvaders.Presentation
 {
     public sealed partial class StartGame : Page
     {
-        private readonly GameViewModel _gameViewModel;
+        private GameViewModel _gameViewModel;
         private EnemyManager _enemyManager;
         private Player _player;
         private ProtectionBlockManager _protectionBlockManager;
         private Bullet _currentBullet;
 
+        public Player PlayerGame
+        {
+            get { return _player; }
+        }
+
+        public EnemyManager EnemyManagerGame
+        {
+            get { return _enemyManager; }
+        }
+
+        public GameViewModel ViewModelGame
+        {
+            get { return _gameViewModel; }
+        }
+        public ProtectionBlockManager ProtectionBlockManagerGame
+        {
+            get { return _protectionBlockManager; }
+        }
 
         public StartGame()
         {
@@ -38,16 +53,6 @@ namespace SpaceInvaders.Presentation
             _player.LoadImage();
         }
 
-        private void GoToMain(object sender, RoutedEventArgs e)
-        {
-            Frame?.Navigate(typeof(MainPage));
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            //_gameViewModel.IncreaseScore();
-        }
-
         private void Grid_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == VirtualKey.Space)
@@ -55,7 +60,8 @@ namespace SpaceInvaders.Presentation
                 if (_currentBullet == null || !_currentBullet.IsActive)
                 {
                     _currentBullet = new Bullet(_player.X, _player.Y, "ms-appx:///Assets/Images/bulletImage.png", GameCanvas);
-                    _currentBullet.Move(_enemyManager, _gameViewModel); 
+                    _currentBullet.Move(this); 
+                    
                 }
                 else
                 {
@@ -69,10 +75,6 @@ namespace SpaceInvaders.Presentation
             else if (e.Key == VirtualKey.Right)
             {
                 _player.MoveRight();
-            }
-            else
-            {
-                Console.WriteLine($"{e.Key}");
             }
         }
     }
