@@ -14,7 +14,7 @@
     </Page.Resources>
 
     <ScrollViewer>
-        <Grid Background="{StaticResource BackgroundImage}" utu:SafeArea.Insets="VisibleBounds">
+        <Grid Background="{StaticResource BackgroundImage}" utu:SafeArea.Insets="VisibleBounds"  DataContext="{Binding}">
 
             <!-- Canvas For Stars -->
             <Canvas x:Name="MainCanvas">
@@ -52,15 +52,14 @@
                     Foreground="White"
                     Command="{Binding OnSettingsButtonClicked}" />
 
-                <Button Content="Score"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Width="200"
-                    Height="60"
-                    FontSize="24"
-                    Background="{ThemeResource AccentBrush}"
-                    Foreground="White"
-                    Command="{Binding OnScoreButtonClicked}" />
+                <TextBlock Text="{Binding MaxScoreText, Mode=TwoWay}"
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center" 
+                           Width="200" 
+                           Height="60" 
+                           FontSize="24" 
+                           Background="{ThemeResource AccentBrush}"
+                           Foreground="White"/>/>
             </StackPanel>
         </Grid>
     </ScrollViewer>

@@ -1,17 +1,22 @@
 ﻿
 using SpaceInvaders.Presentation.Menu;
+using SpaceInvaders.ViewModel;
 
 namespace SpaceInvaders.Presentation;
 
 public sealed partial class MainPage : Page
 {
     private DispatcherTimer _timer;
-    private double _playerYPosition;
+    MainPageViewModel mainPageViewModel;
+
 
     public MainPage()
     {
         this.InitializeComponent();
+        mainPageViewModel = new MainPageViewModel();
+        DataContext = mainPageViewModel;
         this.initializeStars();
+
         
     }
 
@@ -73,5 +78,15 @@ public sealed partial class MainPage : Page
         shootingStar4.AddToCanvas();
         shootingStar5.AddToCanvas();
         shootingStar6.AddToCanvas();
+    }
+    protected override void OnNavigatedTo(NavigationEventArgs e)
+    {
+        base.OnNavigatedTo(e);
+
+        if (e.Parameter is int score)
+        {
+            Console.WriteLine($"[DEBUG] Navegando a MainPage con parámetro: {e.Parameter}");
+            mainPageViewModel.IncreaseScore(score);
+        }
     }
 }

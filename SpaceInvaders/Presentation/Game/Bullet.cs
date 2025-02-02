@@ -103,17 +103,17 @@ namespace SpaceInvaders.Presentation.Game
         {
             foreach (Enemy enemy in startGame.EnemyManagerGame.Enemies)
             {
-                if (enemy.X >= X - 20 && enemy.X <= X + 20 && enemy.Y >= Y - 20 && enemy.Y <= Y + 20)
+                bool intervalCollitionX = enemy.X >= X - 20 && enemy.X <= X + 20;
+                bool intervalCollitionY = enemy.Y >= Y - 20 && enemy.Y <= Y + 20;
+
+                if (intervalCollitionX && intervalCollitionY)
                 {
                     startGame.ViewModelGame.IncreaseScore(enemy.Points);
                     enemy.RemoveEnemy(_canvas);
                     startGame.EnemyManagerGame.Enemies.Remove(enemy);
                     startGame.EnemyManagerGame.ResetEnemies();
                     Console.WriteLine(startGame.EnemyManagerGame.Enemies.Count);
-                    if (startGame.ViewModelGame.ScorePlayer.ScorePlayer == 500)
-                    {
-                        startGame.Frame?.Navigate(typeof(MainPage));
-                    }
+                    ValidateGameOver(startGame);
                     return true;
                 }
             
@@ -124,7 +124,10 @@ namespace SpaceInvaders.Presentation.Game
         {
             foreach (ProtectionBlock protectionBlock in startGame.ProtectionBlockManagerGame.ProtectionBlocks)
             {
-                if (protectionBlock.X >= X - 80 && protectionBlock.X <= X + 5 && protectionBlock.Y >= Y - 30 && protectionBlock.Y <= Y + 30)
+                bool intervalCollitionX = protectionBlock.X >= X - 80 && protectionBlock.X <= X + 5;
+                bool intervalCollitionY = protectionBlock.Y >= Y - 65 && protectionBlock.Y <= Y + 65;
+
+                if (intervalCollitionX && intervalCollitionY)
                 {
                     if (protectionBlock.Healt < 2)
                     {
@@ -142,6 +145,13 @@ namespace SpaceInvaders.Presentation.Game
 
             }
             return false;
+        }
+        public void ValidateGameOver(StartGame startGame)
+        {
+            if (startGame.ViewModelGame.ScorePlayer.ScorePlayer == 500)
+            {
+                startGame.Frame?.Navigate(typeof(MainPage), startGame.ViewModelGame.ScorePlayer.ScorePlayer);
+            }
         }
     }
 }

@@ -96,7 +96,7 @@ public partial class App : Application
     {
         views.Register(
             new ViewMap(ViewModel: typeof(ShellModel)),
-            new ViewMap<MainPage, MainModel>(),
+            new ViewMap<MainPage, MainPageViewModel>(),
             new DataViewMap<StartGame, GameViewModel, Entity>()
         );
 
@@ -104,7 +104,7 @@ public partial class App : Application
             new RouteMap("", View: views.FindByViewModel<ShellModel>(),
                 Nested:
                 [
-                    new ("Main", View: views.FindByViewModel<MainModel>(), IsDefault:true),
+                    new ("Main", View: views.FindByViewModel<MainPageViewModel>(), IsDefault:true),
                     new ("Second", View: views.FindByViewModel<GameViewModel>()),
                 ]
             )
