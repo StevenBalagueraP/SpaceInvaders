@@ -35,6 +35,7 @@ namespace SpaceInvaders.Presentation
         public StartGame()
         {
             this.InitializeComponent();
+            this.Loaded += StartGame_Loaded;
             _enemyManager = new EnemyManager(GameCanvas);
             _protectionBlockManager = new ProtectionBlockManager(GameCanvas);
             _player = new Player("ms-appx:///Assets/Images/playerSpaceShip.png", GameCanvas);
@@ -42,8 +43,39 @@ namespace SpaceInvaders.Presentation
             generateObjects();
             DataContext = _gameViewModel;
             gridGame.Focus(FocusState.Programmatic);
+            
 
 
+        }
+        private void StartGame_Loaded(object sender, RoutedEventArgs e)
+        {
+            StartGameSound.MediaPlayer.Volume = 1.0;
+            StartGameSound.MediaPlayer.Play();
+        }
+        public void DamageEnemiesSound()
+        {
+            DamageEnemies.MediaPlayer.Volume = 1.0;
+            DamageEnemies.MediaPlayer.Play();
+        }
+        public void ShootingSoundMedia()
+        {
+            ShootingSound.MediaPlayer.Volume = 1.0;
+            ShootingSound.MediaPlayer.Play();
+        }
+        public void ProtectionBlockSound()
+        {
+            ProtectionBlockDamage.MediaPlayer.Volume = 1.0;
+            ProtectionBlockDamage.MediaPlayer.Play();
+        }
+        public void ResetEnemiesSound()
+        {
+            ResetEnemies.MediaPlayer.Volume = 1.0;
+            ResetEnemies.MediaPlayer.Play();
+        }
+        public void GameOverSound()
+        {
+            GameOver.MediaPlayer.Volume = 1.0;
+            GameOver.MediaPlayer.Play();
         }
 
         public void generateObjects()

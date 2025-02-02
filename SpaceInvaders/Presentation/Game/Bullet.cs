@@ -67,7 +67,7 @@ namespace SpaceInvaders.Presentation.Game
 
             if (IsActive)
             {
-                _timer.Interval = TimeSpan.FromMilliseconds(10); 
+                _timer.Interval = TimeSpan.FromMilliseconds(10);
                 _timer.Tick += (sender, e) =>
                 {
                     if (Y <= 0)
@@ -80,12 +80,14 @@ namespace SpaceInvaders.Presentation.Game
                     {
                         _timer.Stop();
                         _canvas.Children.Remove(bulletImage);
+                        startGame.DamageEnemiesSound();
                         IsActive = false;
                     }
                     else if (CheckBlockCollitions(startGame))
                     {
                         _timer.Stop();
                         _canvas.Children.Remove(bulletImage);
+                        startGame.ProtectionBlockSound();
                         IsActive = false;
                     }
                     else
@@ -111,7 +113,7 @@ namespace SpaceInvaders.Presentation.Game
                     startGame.ViewModelGame.IncreaseScore(enemy.Points);
                     enemy.RemoveEnemy(_canvas);
                     startGame.EnemyManagerGame.Enemies.Remove(enemy);
-                    startGame.EnemyManagerGame.ResetEnemies();
+                    startGame.EnemyManagerGame.ResetEnemies(startGame);
                     Console.WriteLine(startGame.EnemyManagerGame.Enemies.Count);
                     ValidateGameOver(startGame);
                     return true;
@@ -150,7 +152,9 @@ namespace SpaceInvaders.Presentation.Game
         {
             if (startGame.ViewModelGame.ScorePlayer.ScorePlayer == 500)
             {
+                startGame.GameOverSound();
                 startGame.Frame?.Navigate(typeof(MainPage), startGame.ViewModelGame.ScorePlayer.ScorePlayer);
+                
             }
         }
     }

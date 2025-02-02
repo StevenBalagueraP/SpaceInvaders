@@ -16,8 +16,15 @@ public sealed partial class MainPage : Page
         mainPageViewModel = new MainPageViewModel();
         DataContext = mainPageViewModel;
         this.initializeStars();
+        this.Loaded += MainPage_Loaded;
 
-        
+
+
+    }
+    private void MainPage_Loaded(object sender, RoutedEventArgs e)
+    {
+        MenuSound.MediaPlayer.Volume = 1.0;
+        MenuSound.MediaPlayer.Play();
     }
 
 

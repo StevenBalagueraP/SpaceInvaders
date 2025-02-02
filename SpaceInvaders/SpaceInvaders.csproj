@@ -52,5 +52,8 @@
       <DependentUpon>StartGame.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Sounds\" />
+  </ItemGroup>
 
 </Project>

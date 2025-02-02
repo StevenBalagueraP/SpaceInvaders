@@ -22,12 +22,13 @@ public class EnemyManager
     {
 
     }
-    public void ResetEnemies()
+    public void ResetEnemies(StartGame startGame)
     {
         if (Enemies.Count == 0)
         {
             isFinishedRound=false;
             GenerateNewRound(5, 3);
+            startGame.ResetEnemiesSound();
         }
 
     }
