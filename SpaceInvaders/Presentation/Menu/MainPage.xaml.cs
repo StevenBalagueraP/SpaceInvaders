@@ -92,8 +92,7 @@ public sealed partial class MainPage : Page
 
         if (e.Parameter is int score)
         {
-            Console.WriteLine($"[DEBUG] Navegando a MainPage con parámetro: {e.Parameter}");
-            mainPageViewModel.IncreaseScore(score);
+            MaxScoreblk.Text = $"MaxScore {score}";
         }
     }
 }
