@@ -53,6 +53,32 @@
             <Canvas x:Name="GameCanvas" Width="400" Height="600">
                 
             </Canvas>
+            <MediaPlayerElement x:Name="StartGameSound"
+                                Width="0"
+                                Height="0"
+                                Source="ms-appx:///Assets/Sounds/StartGameSound.mp3"/>
+            <MediaPlayerElement x:Name="DamageEnemies"
+                    Width="0"
+                    Height="0"
+                    Source="ms-appx:///Assets/Sounds/DamageEnemies.mp3"/>
+            <MediaPlayerElement x:Name="ShootingSound"
+                     Width="0"
+                     Height="0"
+                     Source="ms-appx:///Assets/Sounds/ShootingSound.mp3"/>
+            <MediaPlayerElement x:Name="ProtectionBlockDamage"
+                     Width="0"
+                     Height="0"
+                     Source="ms-appx:///Assets/Sounds/ProtectionBlockDamage.mp3"/>
+            <MediaPlayerElement x:Name="ResetEnemies"
+                     Width="0"
+                     Height="0"
+                     Source="ms-appx:///Assets/Sounds/ResetEnemies.mp3"/>
+            <MediaPlayerElement x:Name="GameOver"
+                     Width="0"
+                     Height="0"
+                     Source="ms-appx:///Assets/Sounds/GameOverSound.mp3"/>
+
+
         </StackPanel>
     </Grid>
 </Page>

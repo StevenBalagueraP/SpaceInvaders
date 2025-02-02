@@ -1,12 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.ApplicationModel;
-
+﻿using System.ComponentModel;
 namespace SpaceInvaders.ViewModel;
 
 public class MainPageViewModel : INotifyPropertyChanged
@@ -19,7 +11,7 @@ public class MainPageViewModel : INotifyPropertyChanged
         _score = new Score();
     }
 
-    public String MaxScoreText
+    public string MaxScoreText
     {
         get => $"MaxScore: {_score.ScorePlayer}";
     }
@@ -28,7 +20,9 @@ public class MainPageViewModel : INotifyPropertyChanged
         _score.incrementScore(score);
         Console.WriteLine($"[DEBUG] Incrementando score: {score}");
         OnpropertyChanged(nameof(MaxScoreText));
-        
+        Console.WriteLine(_score.ScorePlayer);
+
+
     }
  
     public void OnpropertyChanged(string propertyName)

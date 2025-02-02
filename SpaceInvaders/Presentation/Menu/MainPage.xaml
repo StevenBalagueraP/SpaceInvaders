@@ -20,8 +20,12 @@
             <Canvas x:Name="MainCanvas">
 
             </Canvas>
-            
-            
+            <MediaPlayerElement x:Name="MenuSound"
+                                Width="0"
+                                Height="0"
+                                Source="ms-appx:///Assets/Sounds/MenuSound.mp3"/>
+
+
 
             <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="16">
                 <TextBlock Text="Space Invaders"
