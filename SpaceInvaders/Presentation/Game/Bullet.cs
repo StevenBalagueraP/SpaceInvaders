@@ -150,7 +150,7 @@ namespace SpaceInvaders.Presentation.Game
         }
         public void ValidateGameOver(StartGame startGame)
         {
-            if (startGame.ViewModelGame.ScorePlayer.ScorePlayer == 500)
+            if (startGame.ViewModelGame.ScorePlayer.ScorePlayer >= 500)
             {
                 startGame.GameOverSound();
                 startGame.Frame?.Navigate(typeof(MainPage), startGame.ViewModelGame.ScorePlayer.ScorePlayer);
