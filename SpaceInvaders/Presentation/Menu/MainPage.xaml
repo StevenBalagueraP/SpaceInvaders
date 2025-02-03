@@ -27,7 +27,7 @@
 
 
 
-            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="16">
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="16" x:Name="MenuStackPanel">
                 <TextBlock Text="Space Invaders"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top"
@@ -56,14 +56,6 @@
                     Foreground="White"
                     Command="{Binding OnSettingsButtonClicked}" />
 
-                <TextBlock x:Name="MaxScoreblk" Text="MaxScore: 0"
-                           HorizontalAlignment="Center" 
-                           VerticalAlignment="Center" 
-                           Width="200" 
-                           Height="60" 
-                           FontSize="24" 
-                           Background="{ThemeResource AccentBrush}"
-                           Foreground="White"/>/>
             </StackPanel>
         </Grid>
     </ScrollViewer>

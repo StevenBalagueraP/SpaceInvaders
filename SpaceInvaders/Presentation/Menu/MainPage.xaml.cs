@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.UI;
 using SpaceInvaders.Presentation.Menu;
 using SpaceInvaders.ViewModel;
 
@@ -7,6 +8,7 @@ namespace SpaceInvaders.Presentation;
 public sealed partial class MainPage : Page
 {
     private DispatcherTimer _timer;
+    List<int> scores;
     MainPageViewModel mainPageViewModel;
 
 
@@ -17,6 +19,7 @@ public sealed partial class MainPage : Page
         DataContext = mainPageViewModel;
         this.initializeStars();
         this.Loaded += MainPage_Loaded;
+        scores = new List<int>();
 
 
 
@@ -92,7 +95,17 @@ public sealed partial class MainPage : Page
 
         if (e.Parameter is int score)
         {
-            MaxScoreblk.Text = $"MaxScore {score}";
+            TextBlock textBlock = new TextBlock();
+            textBlock.Text = $"Score: {score}";
+            textBlock.HorizontalAlignment = HorizontalAlignment.Center;
+            textBlock.VerticalAlignment = VerticalAlignment.Center;
+            textBlock.Width = 200;
+            textBlock.Height = 60;
+            textBlock.FontSize = 24;
+            textBlock.Foreground = new SolidColorBrush(Colors.White);
+
+            MenuStackPanel.Children.Add( textBlock );
+            
         }
     }
 }
