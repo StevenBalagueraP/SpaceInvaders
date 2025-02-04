@@ -48,7 +48,7 @@
     </UnoFeatures>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="Presentation\Game\StartGame.xaml.cs">
+    <Compile Update="Presentation\StartGame.xaml.cs">
       <DependentUpon>StartGame.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
