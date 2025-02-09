@@ -48,6 +48,10 @@ public abstract class Enemy
         get { return _points; }
         set { _points = value; }
     }
+    public Image? EnemyImage
+    {
+        get { return enemyImage; }
+    }
     public void RemoveEnemy(Canvas canvas)
     {
         canvas.Children.Remove(enemyImage);
@@ -67,18 +71,21 @@ public abstract class Enemy
 
         canvas.Children.Add(enemyImage);
     }
-    public void move()
+    public void Update(string value)
     {
-
+        if (value == "positive") 
+        {
+            X += 1;
+        }
+        else
+        {
+            X -= 1;
+        }
+        
+        Canvas.SetLeft(enemyImage, X);
+       
     }
-    public void Update()
-    {
-
-    }
-    public void reset()
-    {
-
-    }
+    
     public void increaseSpeed()
     {
 

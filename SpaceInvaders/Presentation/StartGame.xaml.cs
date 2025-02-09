@@ -38,13 +38,13 @@ namespace SpaceInvaders.Presentation
             this.InitializeComponent();
             this.Loaded += StartGame_Loaded;
             _enemyManager = new EnemyManager(GameCanvas);
+            _enemyManager.MoveEnemies();
             _protectionBlockManager = new ProtectionBlockManager(GameCanvas);
             _player = new Player("ms-appx:///Assets/Images/playerSpaceShip.png", GameCanvas);
             _gameViewModel = new GameViewModel(_player);
             generateObjects();
             DataContext = _gameViewModel;
             gridGame.Focus(FocusState.Programmatic);
-            
 
 
         }

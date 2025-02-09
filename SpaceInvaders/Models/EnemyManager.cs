@@ -1,13 +1,12 @@
-﻿using SpaceInvaders.Presentation.Game;
-
-namespace SpaceInvaders.Models;
+﻿namespace SpaceInvaders.Models;
 
 public class EnemyManager
 {
     private List<Enemy> _enemies;
     private Canvas _canvas;
     private bool isFinishedRound;
-
+    private DispatcherTimer _timer;
+    string value = "positive";
     public List<Enemy> Enemies
     {
         get { return _enemies; }
@@ -19,10 +18,49 @@ public class EnemyManager
         _enemies = new List<Enemy>();
         isFinishedRound = false;
         _canvas = canvas;
+        _timer = new DispatcherTimer();
     }
     public void SpawnBoss()
     {
 
+    }
+    public void MoveEnemies()
+    {
+        _timer.Interval = TimeSpan.FromMilliseconds(50);
+        _timer.Tick += (sender, e) => Move();
+        if (!_timer.IsEnabled) _timer.Start();
+
+    }
+    public void Move()
+    {
+
+        foreach (Enemy enemy in _enemies)
+        {   
+            enemy.Update(value);
+            if (enemy.X == 665) 
+            {
+                _timer.Stop();
+                foreach (Enemy enemy1 in _enemies)
+                {
+                    enemy1.Y += 10;
+                    Canvas.SetTop(enemy1.EnemyImage, enemy1.Y);
+                }
+                _timer.Start();
+                value = "negative";
+            }
+            if (enemy.X == -300)
+            {
+                _timer.Stop();
+                foreach (Enemy enemy1 in _enemies)
+                {
+                    enemy1.Y += 10;
+                    Canvas.SetTop(enemy1.EnemyImage, enemy1.Y);
+                }
+                _timer.Start();
+                value = "positive";
+            }
+            
+        }
     }
     public void ResetEnemies(StartGame startGame)
     {
@@ -38,8 +76,8 @@ public class EnemyManager
     {
         int canvasWidth = (int)_canvas.ActualWidth;
         int canvasHeight = (int)_canvas.ActualHeight;
-        int enemyWidth = 30;
-        int enemyHeight = 30;
+        int enemyWidth = 33;
+        int enemyHeight = 33;
         int spacing = 10;
 
         int initialX = -110;
