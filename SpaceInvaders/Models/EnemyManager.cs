@@ -1,4 +1,6 @@
-﻿namespace SpaceInvaders.Models;
+﻿using SpaceInvaders.Presentation.Game;
+
+namespace SpaceInvaders.Models;
 
 public class EnemyManager
 {
@@ -6,37 +8,47 @@ public class EnemyManager
     private Canvas _canvas;
     private bool isFinishedRound;
     private DispatcherTimer _timer;
-    string value = "positive";
+    private string value = "positive";
+    private Random _random;
+    DispatcherTimer resetBulletsTimer;
+
     public List<Enemy> Enemies
     {
         get { return _enemies; }
     }
 
 
-    public EnemyManager(Canvas canvas)
+    public EnemyManager(Canvas canvas, StartGame startGame)
     {
         _enemies = new List<Enemy>();
         isFinishedRound = false;
         _canvas = canvas;
         _timer = new DispatcherTimer();
+        _random = new Random();
+        resetBulletsTimer = new DispatcherTimer();
+        resetBulletsTimer.Interval = TimeSpan.FromSeconds(1.3);
+        resetBulletsTimer.Tick += (sender, e) => generateBullet(startGame);
+        resetBulletsTimer.Start();
+
     }
     public void SpawnBoss()
     {
 
     }
-    public void MoveEnemies()
+    public void MoveEnemies(StartGame startGame)
     {
+        
         _timer.Interval = TimeSpan.FromMilliseconds(50);
-        _timer.Tick += (sender, e) => Move();
+        _timer.Tick += (sender, e) => Move(startGame);
         if (!_timer.IsEnabled) _timer.Start();
 
     }
-    public void Move()
+    public void Move(StartGame startGame)
     {
-
         foreach (Enemy enemy in _enemies)
         {   
             enemy.Update(value);
+            
             if (enemy.X == 665) 
             {
                 _timer.Stop();
@@ -59,8 +71,23 @@ public class EnemyManager
                 _timer.Start();
                 value = "positive";
             }
-            
         }
+
+    }
+    public void generateBullet(StartGame startGame)
+    {
+        int randomShootingEnemy = _random.Next(0, 15);
+        if (_enemies[randomShootingEnemy] is ShootingEnemy)
+        {
+            Bullet enemyBullet = new Bullet(_enemies[randomShootingEnemy].X - 5, _enemies[randomShootingEnemy].Y, "ms-appx:///Assets/Images/bulletImage.png", _canvas, false);
+            enemyBullet.Move(startGame);
+        }
+        else
+        {
+            generateBullet(startGame);
+            Console.WriteLine("papu eso no");
+        }
+        
     }
     public void ResetEnemies(StartGame startGame)
     {
@@ -130,6 +157,7 @@ public class EnemyManager
                 }
             }
         }
+        Console.WriteLine(_enemies[14].GetType());
     }
 
 
