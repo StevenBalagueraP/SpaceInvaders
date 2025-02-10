@@ -13,8 +13,9 @@ namespace SpaceInvaders.Presentation.Game
         private Canvas _canvas;
         private Image bulletImage;
         private DispatcherTimer _timer;
+        private bool _isPlayerBullet;
 
-        public Bullet(int x, int y, string imagePath, Canvas canvas)
+        public Bullet(int x, int y, string imagePath, Canvas canvas, bool isPlayerBuller)
         {
             _x = x;
             _y = y;
@@ -23,6 +24,7 @@ namespace SpaceInvaders.Presentation.Game
             _imagePath = imagePath;
             _canvas = canvas;
             _timer = new DispatcherTimer();
+            _isPlayerBullet = isPlayerBuller;
         }
 
         public int X => _x;
@@ -70,18 +72,27 @@ namespace SpaceInvaders.Presentation.Game
                 _timer.Interval = TimeSpan.FromMilliseconds(10);
                 _timer.Tick += (sender, e) =>
                 {
-                    if (Y <= 0)
+                    
+                    if (Y <= 0 || Y >= 550)
                     {
                         _timer.Stop();
                         _canvas.Children.Remove(bulletImage);
                         IsActive = false;
                     }
-                    else if (CheckEnemyCollisions(startGame))
+                    else if (_isPlayerBullet)
                     {
-                        _timer.Stop();
-                        _canvas.Children.Remove(bulletImage);
-                        startGame.DamageEnemiesSound();
-                        IsActive = false;
+                        if (CheckEnemyCollisions(startGame))
+                        {
+                            _timer.Stop();
+                            _canvas.Children.Remove(bulletImage);
+                            startGame.DamageEnemiesSound();
+                            IsActive = false;
+                        }
+                        else
+                        {
+                            Y -= 5;
+                            Canvas.SetTop(bulletImage, Y);
+                        }
                     }
                     else if (CheckBlockCollitions(startGame))
                     {
@@ -92,7 +103,15 @@ namespace SpaceInvaders.Presentation.Game
                     }
                     else
                     {
-                        Y -= 5;
+                        if (_isPlayerBullet)
+                        {
+                            Y -= 5;
+                        }
+                        else
+                        {
+                            Y += 5;
+                        }
+                        
                         Canvas.SetTop(bulletImage, Y);
                     }
                 };
@@ -114,7 +133,6 @@ namespace SpaceInvaders.Presentation.Game
                     enemy.RemoveEnemy(_canvas);
                     startGame.EnemyManagerGame.Enemies.Remove(enemy);
                     startGame.EnemyManagerGame.ResetEnemies(startGame);
-                    Console.WriteLine(startGame.EnemyManagerGame.Enemies.Count);
                     ValidateGameOver(startGame);
                     return true;
                 }

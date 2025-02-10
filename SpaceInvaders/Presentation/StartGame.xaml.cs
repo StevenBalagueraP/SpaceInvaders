@@ -37,8 +37,8 @@ namespace SpaceInvaders.Presentation
         {
             this.InitializeComponent();
             this.Loaded += StartGame_Loaded;
-            _enemyManager = new EnemyManager(GameCanvas);
-            _enemyManager.MoveEnemies();
+            _enemyManager = new EnemyManager(GameCanvas, this);
+            _enemyManager.MoveEnemies(this);
             _protectionBlockManager = new ProtectionBlockManager(GameCanvas);
             _player = new Player("ms-appx:///Assets/Images/playerSpaceShip.png", GameCanvas);
             _gameViewModel = new GameViewModel(_player);
@@ -92,13 +92,9 @@ namespace SpaceInvaders.Presentation
             {
                 if (_currentBullet == null || !_currentBullet.IsActive)
                 {
-                    _currentBullet = new Bullet(_player.X, _player.Y, "ms-appx:///Assets/Images/bulletImage.png", GameCanvas);
+                    _currentBullet = new Bullet(_player.X, _player.Y, "ms-appx:///Assets/Images/bulletImage.png", GameCanvas, true);
                     _currentBullet.Move(this); 
                     
-                }
-                else
-                {
-                    Console.WriteLine("there is already an active bullet");
                 }
             }
             else if (e.Key == VirtualKey.Left)
