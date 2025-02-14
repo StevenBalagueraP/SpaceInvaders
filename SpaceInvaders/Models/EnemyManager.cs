@@ -5,12 +5,14 @@ namespace SpaceInvaders.Models;
 public class EnemyManager
 {
     private List<Enemy> _enemies;
-    private Canvas _canvas;
-    private bool isFinishedRound;
     private DispatcherTimer _timer;
-    private string value = "positive";
+    private DispatcherTimer resetBulletsTimer;
+    private DispatcherTimer spawnBossTimer;
     private Random _random;
-    DispatcherTimer resetBulletsTimer;
+    private Canvas _canvas;
+    private string value = "positive";
+    private int numberOfBullets;
+    private bool isFinishedRound;
 
     public List<Enemy> Enemies
     {
@@ -21,19 +23,40 @@ public class EnemyManager
     public EnemyManager(Canvas canvas, StartGame startGame)
     {
         _enemies = new List<Enemy>();
-        isFinishedRound = false;
         _canvas = canvas;
         _timer = new DispatcherTimer();
-        _random = new Random();
         resetBulletsTimer = new DispatcherTimer();
-        resetBulletsTimer.Interval = TimeSpan.FromSeconds(1.3);
-        resetBulletsTimer.Tick += (sender, e) => generateBullet(startGame);
-        resetBulletsTimer.Start();
+        spawnBossTimer = new DispatcherTimer();
+        _random = new Random();
 
+        resetBulletTimer(startGame);
+        SpawnBoossTimer();
+        isFinishedRound = false;
+
+    }
+    private void resetBulletTimer(StartGame startGame)
+    {
+        resetBulletsTimer.Interval = TimeSpan.FromSeconds(3);
+        resetBulletsTimer.Tick += (sender, e) => {
+            numberOfBullets = _random.Next(1, 4);
+            generateBullet(startGame);
+
+        };
+        resetBulletsTimer.Start();
+    }
+    private void SpawnBoossTimer()
+    {
+        spawnBossTimer.Interval = TimeSpan.FromMinutes(1);
+        spawnBossTimer.Tick += (sender, e) => SpawnBoss();
+        spawnBossTimer.Start();
     }
     public void SpawnBoss()
     {
 
+        int randomNumber = _random.Next(60, 151);
+        BoossEnemy boossEnemy = new BoossEnemy(650, 30, 10, "ms-appx:///Assets/Images/boossEnemy.png", randomNumber);
+        boossEnemy.addEnemy(45, 45, _canvas);
+        Console.WriteLine("holaaa");
     }
     public void MoveEnemies(StartGame startGame)
     {
@@ -76,18 +99,43 @@ public class EnemyManager
     }
     public void generateBullet(StartGame startGame)
     {
-        int randomShootingEnemy = _random.Next(0, 15);
-        if (_enemies[randomShootingEnemy] is ShootingEnemy)
+        for (int i = 0; i < numberOfBullets; i++)
         {
-            Bullet enemyBullet = new Bullet(_enemies[randomShootingEnemy].X - 5, _enemies[randomShootingEnemy].Y, "ms-appx:///Assets/Images/bulletImage.png", _canvas, false);
-            enemyBullet.Move(startGame);
+            if (_enemies.Count >= 15)
+            {
+                int randomShootingEnemy = _random.Next(0, 15);
+                if (_enemies[randomShootingEnemy] is ShootingEnemy)
+                {
+                    Console.WriteLine(_enemies.Count());
+                    Console.WriteLine($"random; {randomShootingEnemy}");
+
+                    Bullet enemyBullet = new Bullet(_enemies[randomShootingEnemy].X - 5, _enemies[randomShootingEnemy].Y, "ms-appx:///Assets/Images/bulletImage.png", _canvas, false);
+                    enemyBullet.Move(startGame);
+                }
+                else
+                {
+
+                    Console.WriteLine("papu eso no");
+                }
+            }
+            else
+            {
+                int randomShootingEnemy = _random.Next(0, _enemies.Count);
+                if (_enemies[randomShootingEnemy] is ShootingEnemy)
+                {
+                    Console.WriteLine(_enemies.Count());
+                    Console.WriteLine($"random; {randomShootingEnemy}");
+
+                    Bullet enemyBullet = new Bullet(_enemies[randomShootingEnemy].X - 5, _enemies[randomShootingEnemy].Y, "ms-appx:///Assets/Images/bulletImage.png", _canvas, false);
+                    enemyBullet.Move(startGame);
+                }
+                else
+                {
+
+                    Console.WriteLine("papu eso no");
+                }
+            }   
         }
-        else
-        {
-            generateBullet(startGame);
-            Console.WriteLine("papu eso no");
-        }
-        
     }
     public void ResetEnemies(StartGame startGame)
     {
@@ -157,7 +205,6 @@ public class EnemyManager
                 }
             }
         }
-        Console.WriteLine(_enemies[14].GetType());
     }
 
 
