@@ -10,8 +10,7 @@ public abstract class Enemy
     private int _speed;
     private string _imagePath;
     private int _points;
-    Image? enemyImage;
-
+    private Image? enemyImage;
     public Enemy(int x, int y, int speed, string imagePath, int points)
     {
         _x = x;
@@ -51,6 +50,7 @@ public abstract class Enemy
     public Image? EnemyImage
     {
         get { return enemyImage; }
+        set { enemyImage = value; }
     }
     public void RemoveEnemy(Canvas canvas)
     {
@@ -71,23 +71,43 @@ public abstract class Enemy
 
         canvas.Children.Add(enemyImage);
     }
-    public void Update(string value)
+    public bool Update(string value, Canvas canvas)
     {
-        if (value == "positive") 
+        bool isRemoved = false;
+        if (value == "positive")
         {
             X += 1;
+            
+            if (this is BoossEnemy)
+            {
+          
+                if (X >= 680)
+                {
+                    isRemoved = true;
+                }
+            }
         }
         else
         {
             X -= 1;
+            if (this is BoossEnemy)
+            {
+                if (X <= -350)
+                {
+                    isRemoved = true;
+                    //Console.WriteLine("hola negativo");
+                }
+
+            }
+        }
+        if (!isRemoved)
+        {
+            Canvas.SetLeft(enemyImage, X);
         }
         
-        Canvas.SetLeft(enemyImage, X);
-       
-    }
-    
-    public void increaseSpeed()
-    {
+        return isRemoved;
 
+        
+       
     }
 }

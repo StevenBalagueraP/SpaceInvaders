@@ -8,6 +8,7 @@ public class EnemyManager
     private DispatcherTimer _timer;
     private DispatcherTimer resetBulletsTimer;
     private DispatcherTimer spawnBossTimer;
+    private DispatcherTimer moveBooss;
     private Random _random;
     private Canvas _canvas;
     private string value = "positive";
@@ -27,6 +28,7 @@ public class EnemyManager
         _timer = new DispatcherTimer();
         resetBulletsTimer = new DispatcherTimer();
         spawnBossTimer = new DispatcherTimer();
+        moveBooss = new DispatcherTimer();
         _random = new Random();
 
         resetBulletTimer(startGame);
@@ -52,11 +54,26 @@ public class EnemyManager
     }
     public void SpawnBoss()
     {
+        int count = _random.Next(0, 2);
+        Console.WriteLine(count);
+        int number = count == 0 ? -300 : 650;
+        string value = number < 0 ? "positive" : "negative";
 
         int randomNumber = _random.Next(60, 151);
-        BoossEnemy boossEnemy = new BoossEnemy(650, 30, 10, "ms-appx:///Assets/Images/boossEnemy.png", randomNumber);
+        BoossEnemy boossEnemy = new BoossEnemy(number, 30, 10, "ms-appx:///Assets/Images/boossEnemy.png", randomNumber);
         boossEnemy.addEnemy(45, 45, _canvas);
-        Console.WriteLine("holaaa");
+        moveBooss.Interval = TimeSpan.FromMilliseconds(10);
+        moveBooss.Tick += (sender, e) =>
+        {
+            if (boossEnemy.Update(value, _canvas))
+            {
+                // correjir funciona pero debemos eliminarlo. tengo sueño :v
+
+                boossEnemy.RemoveEnemy(_canvas);
+            }
+        };
+        if (!moveBooss.IsEnabled) moveBooss.Start();
+        
     }
     public void MoveEnemies(StartGame startGame)
     {
@@ -70,7 +87,7 @@ public class EnemyManager
     {
         foreach (Enemy enemy in _enemies)
         {   
-            enemy.Update(value);
+            enemy.Update(value, _canvas);
             
             if (enemy.X == 665) 
             {
