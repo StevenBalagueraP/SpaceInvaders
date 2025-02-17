@@ -6,9 +6,4 @@ internal class ShootingEnemy : Enemy
     {
     }
 
-    public void Shoot()
-    {
-
-    }
-
 }

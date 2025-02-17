@@ -88,6 +88,13 @@ namespace SpaceInvaders.Presentation.Game
                             startGame.DamageEnemiesSound();
                             IsActive = false;
                         }
+                        else if (CheckBlockCollitions(startGame))
+                        {
+                            _timer.Stop();
+                            _canvas.Children.Remove(bulletImage);
+                            startGame.ProtectionBlockSound();
+                            IsActive = false;
+                        }
                         else
                         {
                             Y -= 5;
@@ -130,9 +137,11 @@ namespace SpaceInvaders.Presentation.Game
                 if (intervalCollitionX && intervalCollitionY)
                 {
                     startGame.ViewModelGame.IncreaseScore(enemy.Points);
-                    enemy.RemoveEnemy(_canvas);
                     startGame.EnemyManagerGame.Enemies.Remove(enemy);
                     startGame.EnemyManagerGame.ResetEnemies(startGame);
+                    enemy.RemoveEnemy(_canvas);
+                    enemy.IsRemoved = true;
+                    
                     ValidateGameOver(startGame);
                     return true;
                 }
@@ -145,7 +154,7 @@ namespace SpaceInvaders.Presentation.Game
             foreach (ProtectionBlock protectionBlock in startGame.ProtectionBlockManagerGame.ProtectionBlocks)
             {
                 bool intervalCollitionX = protectionBlock.X >= X - 80 && protectionBlock.X <= X + 5;
-                bool intervalCollitionY = protectionBlock.Y >= Y - 65 && protectionBlock.Y <= Y + 65;
+                bool intervalCollitionY = protectionBlock.Y >= Y - 65 && protectionBlock.Y <= Y + 16;
 
                 if (intervalCollitionX && intervalCollitionY)
                 {
