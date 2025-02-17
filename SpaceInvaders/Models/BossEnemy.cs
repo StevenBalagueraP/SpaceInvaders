@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SpaceInvaders.Models;
 
-public class BoossEnemy : Enemy
+public class BossEnemy : Enemy
 {
-    public BoossEnemy(int x, int y, int speed, string imagePath, int points) : base(x, y, speed, imagePath, points)
+    public BossEnemy(int x, int y, int speed, string imagePath, int points) : base(x, y, speed, imagePath, points)
     {
     }
 }

@@ -4,24 +4,24 @@ namespace SpaceInvaders.Presentation.Game;
 
 public class ProtectionBlock
 {
-    private int _x;
-    private int _y;
+    private int _xPosition;
+    private int _yPosition;
     private string _imagePath;
     private int _healt;
     private bool _isDestroyed;
     private Image? _protectionImage;
 
-    public ProtectionBlock(int x, int y, string imagePath)
+    public ProtectionBlock(int xPosition, int yPosition, string imagePath)
     {
-        _x = x;
-        _y = y;
+        _xPosition = xPosition;
+        _yPosition = yPosition;
         _imagePath = imagePath;
         _healt = 5;
         _isDestroyed = false;
 
     }
-    public int X { get { return _x; } }
-    public int Y { get { return _y; } }
+    public int XPosition { get { return _xPosition; } }
+    public int YPosition { get { return _yPosition; } }
 
     public string ImagePath { get { return _imagePath; } }
 
@@ -48,8 +48,8 @@ public class ProtectionBlock
             Width = 130,
             Height = 130
         };
-        Canvas.SetLeft(_protectionImage, X);
-        Canvas.SetTop(_protectionImage, Y);
+        Canvas.SetLeft(_protectionImage, XPosition);
+        Canvas.SetTop(_protectionImage, YPosition);
 
         _canvas.Children.Add(_protectionImage);
     }

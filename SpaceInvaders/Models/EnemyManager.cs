@@ -31,17 +31,17 @@ public class EnemyManager
         moveBooss = new DispatcherTimer();
         _random = new Random();
 
-        resetBulletTimer(startGame);
+        ResetBulletTimer(startGame);
         SpawnBoossTimer();
         isFinishedRound = false;
 
     }
-    private void resetBulletTimer(StartGame startGame)
+    private void ResetBulletTimer(StartGame startGame)
     {
         resetBulletsTimer.Interval = TimeSpan.FromSeconds(3);
         resetBulletsTimer.Tick += (sender, e) => {
             numberOfBullets = _random.Next(1, 4);
-            generateBullet(startGame);
+            GenerateBullet(startGame);
 
         };
         resetBulletsTimer.Start();
@@ -60,8 +60,8 @@ public class EnemyManager
         string value = number < 0 ? "positive" : "negative";
 
         int randomNumber = _random.Next(60, 151);
-        BoossEnemy boossEnemy = new BoossEnemy(number, 30, 10, "ms-appx:///Assets/Images/boossEnemy.png", randomNumber);
-        boossEnemy.addEnemy(45, 45, _canvas);
+        BossEnemy boossEnemy = new BossEnemy(number, 30, 10, "ms-appx:///Assets/Images/boossEnemy.png", randomNumber);
+        boossEnemy.AddEnemy(45, 45, _canvas);
         _enemies.Add(boossEnemy);
         moveBooss.Interval = TimeSpan.FromMilliseconds(10);
         moveBooss.Tick += (sender, e) =>
@@ -89,28 +89,28 @@ public class EnemyManager
     {
         foreach (Enemy enemy in _enemies)
         {   
-            if (!(enemy is BoossEnemy))
+            if (!(enemy is BossEnemy))
             {
                 enemy.Update(value, _canvas);
 
-                if (enemy.X == 665)
+                if (enemy.XPosition == 665)
                 {
                     _timer.Stop();
                     foreach (Enemy enemy1 in _enemies)
                     {
-                        enemy1.Y += 10;
-                        Canvas.SetTop(enemy1.EnemyImage, enemy1.Y);
+                        enemy1.YPosition += 10;
+                        Canvas.SetTop(enemy1.EnemyImage, enemy1.YPosition);
                     }
                     _timer.Start();
                     value = "negative";
                 }
-                if (enemy.X == -300)
+                if (enemy.XPosition == -300)
                 {
                     _timer.Stop();
                     foreach (Enemy enemy1 in _enemies)
                     {
-                        enemy1.Y += 10;
-                        Canvas.SetTop(enemy1.EnemyImage, enemy1.Y);
+                        enemy1.YPosition += 10;
+                        Canvas.SetTop(enemy1.EnemyImage, enemy1.YPosition);
                     }
                     _timer.Start();
                     value = "positive";
@@ -120,7 +120,7 @@ public class EnemyManager
         }
 
     }
-    public void generateBullet(StartGame startGame)
+    public void GenerateBullet(StartGame startGame)
     {
         for (int i = 0; i < numberOfBullets; i++)
         {
@@ -132,7 +132,7 @@ public class EnemyManager
                     Console.WriteLine(_enemies.Count());
                     Console.WriteLine($"random; {randomShootingEnemy}");
 
-                    Bullet enemyBullet = new Bullet(_enemies[randomShootingEnemy].X - 5, _enemies[randomShootingEnemy].Y, "ms-appx:///Assets/Images/bulletImage.png", _canvas, false);
+                    Bullet enemyBullet = new Bullet(_enemies[randomShootingEnemy].XPosition - 5, _enemies[randomShootingEnemy].YPosition, "ms-appx:///Assets/Images/bulletImage.png", _canvas, false);
                     enemyBullet.Move(startGame);
                 }
                 else
@@ -149,7 +149,7 @@ public class EnemyManager
                     Console.WriteLine(_enemies.Count());
                     Console.WriteLine($"random; {randomShootingEnemy}");
 
-                    Bullet enemyBullet = new Bullet(_enemies[randomShootingEnemy].X - 5, _enemies[randomShootingEnemy].Y, "ms-appx:///Assets/Images/bulletImage.png", _canvas, false);
+                    Bullet enemyBullet = new Bullet(_enemies[randomShootingEnemy].XPosition - 5, _enemies[randomShootingEnemy].YPosition, "ms-appx:///Assets/Images/bulletImage.png", _canvas, false);
                     enemyBullet.Move(startGame);
                 }
                 else
@@ -224,7 +224,7 @@ public class EnemyManager
                     }
 
                     _enemies.Add(enemy);
-                    enemy.addEnemy(enemyWidth, enemyHeight, _canvas);
+                    enemy.AddEnemy(enemyWidth, enemyHeight, _canvas);
                 }
             }
         }

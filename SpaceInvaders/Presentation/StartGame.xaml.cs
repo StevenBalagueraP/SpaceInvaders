@@ -42,7 +42,7 @@ namespace SpaceInvaders.Presentation
             _protectionBlockManager = new ProtectionBlockManager(GameCanvas);
             _player = new Player("ms-appx:///Assets/Images/playerSpaceShip.png", GameCanvas);
             _gameViewModel = new GameViewModel(_player);
-            generateObjects();
+            GenerateObjects();
             DataContext = _gameViewModel;
             gridGame.Focus(FocusState.Programmatic);
 
@@ -79,7 +79,7 @@ namespace SpaceInvaders.Presentation
             GameOver.MediaPlayer.Play();
         }
 
-        public void generateObjects()
+        public void GenerateObjects()
         {
             _protectionBlockManager.GenerateBlock(4);
             _enemyManager.GenerateNewRound(5, 15);

@@ -5,32 +5,32 @@ namespace SpaceInvaders.Models;
 
 public abstract class Enemy
 {
-    private int _x;
-    private int _y;
+    private int _xPosition;
+    private int _yPosition;
     private int _speed;
     private string _imagePath;
     private int _points;
     private Image? enemyImage;
     private bool isRemoved;
-    public Enemy(int x, int y, int speed, string imagePath, int points)
+    public Enemy(int xPosition, int yPosition, int speed, string imagePath, int points)
     {
-        _x = x;
-        _y = y;
+        _xPosition = xPosition;
+        _yPosition = yPosition;
         _speed = speed;
         _imagePath = imagePath;
         _points = points;
         isRemoved = false;
     }
 
-    public int X
+    public int XPosition
     {
-        get { return _x; }
-        set { _x = value; }
+        get { return _xPosition; }
+        set { _xPosition = value; }
     }
-    public int Y
+    public int YPosition
     {
-        get { return _y; }
-        set { _y = value; }
+        get { return _yPosition; }
+        set { _yPosition = value; }
     }
     public int Speed
     {
@@ -65,7 +65,7 @@ public abstract class Enemy
         canvas.Children.Remove(enemyImage);
         enemyImage = null;
     }
-    public void addEnemy(int enemyWidth, int enemyHeight, Canvas canvas)
+    public void AddEnemy(int enemyWidth, int enemyHeight, Canvas canvas)
     {
         enemyImage = new Image
         {
@@ -74,8 +74,8 @@ public abstract class Enemy
             Height = enemyHeight
         };
 
-        Canvas.SetLeft(enemyImage, X);
-        Canvas.SetTop(enemyImage, Y);
+        Canvas.SetLeft(enemyImage, XPosition);
+        Canvas.SetTop(enemyImage, YPosition);
 
         canvas.Children.Add(enemyImage);
     }
@@ -83,12 +83,12 @@ public abstract class Enemy
     {
         if (value == "positive")
         {
-            X += 1;
+            XPosition += 1;
             
-            if (this is BoossEnemy)
+            if (this is BossEnemy)
             {
           
-                if (X >= 680)
+                if (XPosition >= 680)
                 {
                     isRemoved = true;
                 }
@@ -96,20 +96,19 @@ public abstract class Enemy
         }
         else
         {
-            X -= 1;
-            if (this is BoossEnemy)
+            XPosition -= 1;
+            if (this is BossEnemy)
             {
-                if (X <= -350)
+                if (XPosition <= -350)
                 {
                     isRemoved = true;
-                    //Console.WriteLine("hola negativo");
                 }
 
             }
         }
         if (!isRemoved)
         {
-            Canvas.SetLeft(enemyImage, X);
+            Canvas.SetLeft(enemyImage, XPosition);
         }
         
         return isRemoved;
