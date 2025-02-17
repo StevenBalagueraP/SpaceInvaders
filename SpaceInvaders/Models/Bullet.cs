@@ -206,7 +206,7 @@ namespace SpaceInvaders.Presentation.Game
         }
         public void ValidateGameOver(StartGame startGame)
         {
-            if (!startGame.PlayerGame.IsAlive)
+            if (startGame.PlayerGame.Lives == 0)
             {
                 startGame.GameOverSound();
                 startGame.Frame?.Navigate(typeof(MainPage), startGame.ViewModelGame.ScorePlayer.ScorePlayer);
