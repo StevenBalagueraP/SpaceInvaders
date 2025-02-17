@@ -32,7 +32,7 @@ public class EnemyManager
         _random = new Random();
 
         ResetBulletTimer(startGame);
-        SpawnBoossTimer();
+        SpawnBoossTimer(startGame);
         isFinishedRound = false;
 
     }
@@ -46,13 +46,13 @@ public class EnemyManager
         };
         resetBulletsTimer.Start();
     }
-    private void SpawnBoossTimer()
+    private void SpawnBoossTimer(StartGame startGame)
     {
         spawnBossTimer.Interval = TimeSpan.FromMinutes(1);
-        spawnBossTimer.Tick += (sender, e) => SpawnBoss();
+        spawnBossTimer.Tick += (sender, e) => SpawnBoss(startGame);
         spawnBossTimer.Start();
     }
-    public void SpawnBoss()
+    public void SpawnBoss(StartGame startGame)
     {
         int count = _random.Next(0, 2);
         Console.WriteLine(count);
@@ -68,10 +68,11 @@ public class EnemyManager
         {
             if (boossEnemy.Update(value, _canvas))
             {
-                // correjir funciona pero debemos eliminarlo. tengo sueño :v
+                // correjir. funciona pero debemos eliminarlo. tengo sueño :v
                 _enemies.Remove(boossEnemy);
 
                 boossEnemy.RemoveEnemy(_canvas);
+                ResetEnemies(startGame);
             }
         };
         if (!moveBooss.IsEnabled) moveBooss.Start();
@@ -83,6 +84,7 @@ public class EnemyManager
         _timer.Interval = TimeSpan.FromMilliseconds(50);
         _timer.Tick += (sender, e) => Move(startGame);
         if (!_timer.IsEnabled) _timer.Start();
+        
 
     }
     public void Move(StartGame startGame)
@@ -103,6 +105,8 @@ public class EnemyManager
                     }
                     _timer.Start();
                     value = "negative";
+                    validateEnemySpeed();
+                    Console.WriteLine(_timer.Interval.TotalMilliseconds);
                 }
                 if (enemy.XPosition == -300)
                 {
@@ -114,6 +118,8 @@ public class EnemyManager
                     }
                     _timer.Start();
                     value = "positive";
+                    validateEnemySpeed();
+                    Console.WriteLine(_timer.Interval.TotalMilliseconds);
                 }
             }
             
@@ -229,10 +235,13 @@ public class EnemyManager
             }
         }
     }
-
-
-
-
-
+    public void validateEnemySpeed()
+    {
+        if (_timer.Interval.TotalMilliseconds > 20)
+        {
+            _timer.Interval = TimeSpan.FromMilliseconds(_timer.Interval.TotalMilliseconds - 5);
+        }
+        
+    }
 }
 
