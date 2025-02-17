@@ -62,12 +62,14 @@ public class EnemyManager
         int randomNumber = _random.Next(60, 151);
         BoossEnemy boossEnemy = new BoossEnemy(number, 30, 10, "ms-appx:///Assets/Images/boossEnemy.png", randomNumber);
         boossEnemy.addEnemy(45, 45, _canvas);
+        _enemies.Add(boossEnemy);
         moveBooss.Interval = TimeSpan.FromMilliseconds(10);
         moveBooss.Tick += (sender, e) =>
         {
             if (boossEnemy.Update(value, _canvas))
             {
                 // correjir funciona pero debemos eliminarlo. tengo sueño :v
+                _enemies.Remove(boossEnemy);
 
                 boossEnemy.RemoveEnemy(_canvas);
             }
@@ -87,30 +89,34 @@ public class EnemyManager
     {
         foreach (Enemy enemy in _enemies)
         {   
-            enemy.Update(value, _canvas);
+            if (!(enemy is BoossEnemy))
+            {
+                enemy.Update(value, _canvas);
+
+                if (enemy.X == 665)
+                {
+                    _timer.Stop();
+                    foreach (Enemy enemy1 in _enemies)
+                    {
+                        enemy1.Y += 10;
+                        Canvas.SetTop(enemy1.EnemyImage, enemy1.Y);
+                    }
+                    _timer.Start();
+                    value = "negative";
+                }
+                if (enemy.X == -300)
+                {
+                    _timer.Stop();
+                    foreach (Enemy enemy1 in _enemies)
+                    {
+                        enemy1.Y += 10;
+                        Canvas.SetTop(enemy1.EnemyImage, enemy1.Y);
+                    }
+                    _timer.Start();
+                    value = "positive";
+                }
+            }
             
-            if (enemy.X == 665) 
-            {
-                _timer.Stop();
-                foreach (Enemy enemy1 in _enemies)
-                {
-                    enemy1.Y += 10;
-                    Canvas.SetTop(enemy1.EnemyImage, enemy1.Y);
-                }
-                _timer.Start();
-                value = "negative";
-            }
-            if (enemy.X == -300)
-            {
-                _timer.Stop();
-                foreach (Enemy enemy1 in _enemies)
-                {
-                    enemy1.Y += 10;
-                    Canvas.SetTop(enemy1.EnemyImage, enemy1.Y);
-                }
-                _timer.Start();
-                value = "positive";
-            }
         }
 
     }

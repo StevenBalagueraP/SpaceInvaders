@@ -11,6 +11,7 @@ public abstract class Enemy
     private string _imagePath;
     private int _points;
     private Image? enemyImage;
+    private bool isRemoved;
     public Enemy(int x, int y, int speed, string imagePath, int points)
     {
         _x = x;
@@ -18,6 +19,7 @@ public abstract class Enemy
         _speed = speed;
         _imagePath = imagePath;
         _points = points;
+        isRemoved = false;
     }
 
     public int X
@@ -40,6 +42,12 @@ public abstract class Enemy
     {
         get { return _imagePath; }
         set { _imagePath = value; }
+    }
+
+    public bool IsRemoved
+    {
+        get { return isRemoved; }
+        set {  isRemoved = value; }
     }
 
     public int Points
@@ -73,7 +81,6 @@ public abstract class Enemy
     }
     public bool Update(string value, Canvas canvas)
     {
-        bool isRemoved = false;
         if (value == "positive")
         {
             X += 1;

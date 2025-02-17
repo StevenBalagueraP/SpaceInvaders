@@ -137,9 +137,11 @@ namespace SpaceInvaders.Presentation.Game
                 if (intervalCollitionX && intervalCollitionY)
                 {
                     startGame.ViewModelGame.IncreaseScore(enemy.Points);
-                    enemy.RemoveEnemy(_canvas);
                     startGame.EnemyManagerGame.Enemies.Remove(enemy);
                     startGame.EnemyManagerGame.ResetEnemies(startGame);
+                    enemy.RemoveEnemy(_canvas);
+                    enemy.IsRemoved = true;
+                    
                     ValidateGameOver(startGame);
                     return true;
                 }
