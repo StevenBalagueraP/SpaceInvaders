@@ -9,6 +9,7 @@ public class Player
     private string _imagePath;
     private Canvas _canvas;
     private int _lives;
+    private int _lastMilestone;
     private Image playerImage;
     private bool isAlive;
 
@@ -19,6 +20,7 @@ public class Player
         CenterPlayer(); 
         _lives = 3;
         isAlive = true;
+        _lastMilestone = 0;
     }
 
     public bool IsAlive
@@ -115,6 +117,15 @@ public class Player
             playerImage.Source = null;
             playerImage = null;
             canvas.UpdateLayout(); 
+        }
+    }
+
+    public void IncreaseLives(int score)
+    {
+        if (score / 1000 > _lastMilestone && Lives < 6)
+        {
+            _lives++;
+            _lastMilestone = score / 1000; 
         }
     }
 }
