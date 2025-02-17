@@ -10,6 +10,7 @@ public class Player
     private Canvas _canvas;
     private int _lives;
     private Image playerImage;
+    private bool isAlive;
 
     public Player(string imagePath, Canvas canvas)
     {
@@ -17,8 +18,14 @@ public class Player
         _canvas = canvas;
         CenterPlayer(); 
         _lives = 3;
+        isAlive = true;
     }
 
+    public bool IsAlive
+    {
+        get { return isAlive; }
+        set { isAlive = value; }
+    }
     public int X { 
         get { return _x; }
         set { _x = value; }
@@ -49,6 +56,14 @@ public class Player
 
         _canvas.Children.Add(playerImage);
     }
+    public void resetPlayer()
+    {
+        _x = 200;
+        _y = 600 - 90;
+        Canvas.SetLeft(playerImage, _x);
+        Canvas.SetTop(playerImage, _y);
+
+    }
 
     private void CenterPlayer()
     {
@@ -63,23 +78,41 @@ public class Player
     }
     public void MoveLeft()
     {
-        X -= 10;
-        if (X <= -300)
+        if (isAlive)
         {
-            X = 640 ;
+            X -= 10;
+            if (X <= -300)
+            {
+                X = 640;
+            }
+            LoadImage();
         }
-        LoadImage();
+        
     }
     public void MoveRight()
     {
-        X += 10;
-       
-
-        if (X >= 640)
+        if (isAlive)
         {
-            X = -300; 
+            X += 10;
+
+
+            if (X >= 640)
+            {
+                X = -300;
+            }
+            LoadImage();
         }
-        LoadImage();
+        
+    }
+    public void RemovePlayer(Canvas canvas)
+    {
+        if (playerImage != null)
+        {
+            canvas.Children.Remove(playerImage);
+            playerImage.Source = null;
+            playerImage = null;
+            canvas.UpdateLayout(); // <-- Forzar actualización de la UI
+        }
     }
 }
 
