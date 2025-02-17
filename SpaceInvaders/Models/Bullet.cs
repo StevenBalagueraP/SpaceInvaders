@@ -101,30 +101,59 @@ namespace SpaceInvaders.Presentation.Game
                             Canvas.SetTop(bulletImage, Y);
                         }
                     }
-                    else if (CheckBlockCollitions(startGame))
+                    else if (!_isPlayerBullet)
                     {
-                        _timer.Stop();
-                        _canvas.Children.Remove(bulletImage);
-                        startGame.ProtectionBlockSound();
-                        IsActive = false;
-                    }
-                    else
-                    {
-                        if (_isPlayerBullet)
+                        if (CheckBlockCollitions(startGame))
                         {
-                            Y -= 5;
+                            _timer.Stop();
+                            _canvas.Children.Remove(bulletImage);
+                            startGame.ProtectionBlockSound();
+                            IsActive = false;
+                        }
+                        else if (CheckPlayerCollition(startGame))
+                        {
+                            _timer.Stop();
+                            _canvas.Children.Remove(bulletImage);
+
+                            startGame.ViewModelGame.UpdateLife(startGame.PlayerGame.Lives);
+                            IsActive = false;
+
                         }
                         else
                         {
                             Y += 5;
                         }
+                    }
                         
                         Canvas.SetTop(bulletImage, Y);
-                    }
                 };
 
                 if (!_timer.IsEnabled) _timer.Start(); 
             }
+        }
+        public bool CheckPlayerCollition(StartGame startGame)
+        {
+            bool intervalCollitionX = startGame.PlayerGame.X >= X - 20 && startGame.PlayerGame.X <= X + 20;
+            bool intervalCollitionY = startGame.PlayerGame.Y >= Y - 20 && startGame.PlayerGame.Y <= Y + 20;
+
+            if (intervalCollitionX && intervalCollitionY) 
+            {
+                if (startGame.PlayerGame.Lives > 1)
+                {
+                   startGame.PlayerGame.Lives--;
+                   startGame.PlayerGame.resetPlayer();
+                }
+                else
+                {
+                    startGame.PlayerGame.RemovePlayer(_canvas);
+                    startGame.PlayerGame.IsAlive = false;
+                    startGame.PlayerGame.Lives--;
+                }
+
+                ValidateGameOver(startGame);
+                return true;
+            }
+            return false;
         }
 
         public bool CheckEnemyCollisions(StartGame startGame)
@@ -177,7 +206,7 @@ namespace SpaceInvaders.Presentation.Game
         }
         public void ValidateGameOver(StartGame startGame)
         {
-            if (startGame.ViewModelGame.ScorePlayer.ScorePlayer >= 500000)
+            if (!startGame.PlayerGame.IsAlive)
             {
                 startGame.GameOverSound();
                 startGame.Frame?.Navigate(typeof(MainPage), startGame.ViewModelGame.ScorePlayer.ScorePlayer);
