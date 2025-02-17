@@ -31,7 +31,7 @@ public class GameViewModel : INotifyPropertyChanged
 
     public void IncreaseScore(int score)
     {
-        _score.incrementScore(score);
+        _score.IncrementScore(score);
         OnpropertyChanged(nameof(ScoreText));
     }
     public void UpdateLife(int lives)

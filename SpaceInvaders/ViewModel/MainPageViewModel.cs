@@ -17,7 +17,7 @@ public class MainPageViewModel : INotifyPropertyChanged
     }
     public void IncreaseScore(int score)
     {
-        _score.incrementScore(score);
+        _score.IncrementScore(score);
         Console.WriteLine($"[DEBUG] Incrementando score: {score}");
         OnpropertyChanged(nameof(MaxScoreText));
         Console.WriteLine(_score.ScorePlayer);

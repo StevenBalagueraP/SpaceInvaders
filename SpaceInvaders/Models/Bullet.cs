@@ -5,8 +5,8 @@ namespace SpaceInvaders.Presentation.Game
 {
     class Bullet
     {
-        private int _x;
-        private int _y;
+        private int _xPosition;
+        private int _yPosition;
         private double _speed;
         private bool _isActive;
         private string _imagePath;
@@ -17,8 +17,8 @@ namespace SpaceInvaders.Presentation.Game
 
         public Bullet(int x, int y, string imagePath, Canvas canvas, bool isPlayerBuller)
         {
-            _x = x;
-            _y = y;
+            _xPosition = x;
+            _yPosition = y;
             _speed = 12.5;
             _isActive = false;
             _imagePath = imagePath;
@@ -27,11 +27,11 @@ namespace SpaceInvaders.Presentation.Game
             _isPlayerBullet = isPlayerBuller;
         }
 
-        public int X => _x;
-        public int Y
+        public int XPosition => _xPosition;
+        public int YPosition
         {
-            get { return _y; }
-            set { _y = value; }
+            get { return _yPosition; }
+            set { _yPosition = value; }
         }
         public double Speed => _speed;
         public bool IsActive
@@ -57,8 +57,8 @@ namespace SpaceInvaders.Presentation.Game
                     };
                 }
 
-                Canvas.SetLeft(bulletImage, X + 5);
-                Canvas.SetTop(bulletImage, Y);
+                Canvas.SetLeft(bulletImage, XPosition + 5);
+                Canvas.SetTop(bulletImage, YPosition);
                 _canvas.Children.Add(bulletImage);
             }
         }
@@ -73,7 +73,7 @@ namespace SpaceInvaders.Presentation.Game
                 _timer.Tick += (sender, e) =>
                 {
                     
-                    if (Y <= 0 || Y >= 550)
+                    if (YPosition <= 0 || YPosition >= 550)
                     {
                         _timer.Stop();
                         _canvas.Children.Remove(bulletImage);
@@ -97,8 +97,8 @@ namespace SpaceInvaders.Presentation.Game
                         }
                         else
                         {
-                            Y -= 5;
-                            Canvas.SetTop(bulletImage, Y);
+                            YPosition -= 5;
+                            Canvas.SetTop(bulletImage, YPosition);
                         }
                     }
                     else if (!_isPlayerBullet)
@@ -121,11 +121,11 @@ namespace SpaceInvaders.Presentation.Game
                         }
                         else
                         {
-                            Y += 5;
+                            YPosition += 5;
                         }
                     }
                         
-                        Canvas.SetTop(bulletImage, Y);
+                        Canvas.SetTop(bulletImage, YPosition);
                 };
 
                 if (!_timer.IsEnabled) _timer.Start(); 
@@ -133,8 +133,8 @@ namespace SpaceInvaders.Presentation.Game
         }
         public bool CheckPlayerCollition(StartGame startGame)
         {
-            bool intervalCollitionX = startGame.PlayerGame.X >= X - 20 && startGame.PlayerGame.X <= X + 20;
-            bool intervalCollitionY = startGame.PlayerGame.Y >= Y - 20 && startGame.PlayerGame.Y <= Y + 20;
+            bool intervalCollitionX = startGame.PlayerGame.X >= XPosition - 20 && startGame.PlayerGame.X <= XPosition + 20;
+            bool intervalCollitionY = startGame.PlayerGame.Y >= YPosition - 20 && startGame.PlayerGame.Y <= YPosition + 20;
 
             if (intervalCollitionX && intervalCollitionY) 
             {
@@ -160,8 +160,8 @@ namespace SpaceInvaders.Presentation.Game
         {
             foreach (Enemy enemy in startGame.EnemyManagerGame.Enemies)
             {
-                bool intervalCollitionX = enemy.X >= X - 20 && enemy.X <= X + 20;
-                bool intervalCollitionY = enemy.Y >= Y - 20 && enemy.Y <= Y + 20;
+                bool intervalCollitionX = enemy.XPosition >= XPosition - 20 && enemy.XPosition <= XPosition + 20;
+                bool intervalCollitionY = enemy.YPosition >= YPosition - 20 && enemy.YPosition <= YPosition + 20;
 
                 if (intervalCollitionX && intervalCollitionY)
                 {
@@ -182,8 +182,8 @@ namespace SpaceInvaders.Presentation.Game
         {
             foreach (ProtectionBlock protectionBlock in startGame.ProtectionBlockManagerGame.ProtectionBlocks)
             {
-                bool intervalCollitionX = protectionBlock.X >= X - 80 && protectionBlock.X <= X + 5;
-                bool intervalCollitionY = protectionBlock.Y >= Y - 65 && protectionBlock.Y <= Y + 16;
+                bool intervalCollitionX = protectionBlock.XPosition >= XPosition - 80 && protectionBlock.XPosition <= XPosition + 5;
+                bool intervalCollitionY = protectionBlock.YPosition >= YPosition - 65 && protectionBlock.YPosition <= YPosition + 16;
 
                 if (intervalCollitionX && intervalCollitionY)
                 {

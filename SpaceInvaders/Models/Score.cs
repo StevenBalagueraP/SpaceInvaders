@@ -8,7 +8,7 @@ public class Score
     {
         get { return _scorePlayer; }
     }
-    public void incrementScore(int score)
+    public void IncrementScore(int score)
     {
         _scorePlayer += score;
     }

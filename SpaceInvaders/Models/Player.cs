@@ -26,11 +26,15 @@ public class Player
         get { return isAlive; }
         set { isAlive = value; }
     }
-    public int X { 
+    public int X 
+    { 
         get { return _x; }
         set { _x = value; }
     }
-    public int Y { get { return _y; } }
+    public int Y 
+    {
+        get { return _y; } 
+    }
     public string ImagePath { get { return _imagePath; } }
 
     public int Lives
@@ -59,7 +63,7 @@ public class Player
     public void resetPlayer()
     {
         _x = 200;
-        _y = 600 - 90;
+        _y = 510;
         Canvas.SetLeft(playerImage, _x);
         Canvas.SetTop(playerImage, _y);
 
@@ -70,7 +74,6 @@ public class Player
         double canvasWidth = _canvas.ActualWidth;
         double canvasHeight = _canvas.ActualHeight;
 
-        int playerWidth = 90;
         int playerHeight = 90;
 
         _x = 200;
@@ -111,7 +114,7 @@ public class Player
             canvas.Children.Remove(playerImage);
             playerImage.Source = null;
             playerImage = null;
-            canvas.UpdateLayout(); // <-- Forzar actualización de la UI
+            canvas.UpdateLayout(); 
         }
     }
 }
