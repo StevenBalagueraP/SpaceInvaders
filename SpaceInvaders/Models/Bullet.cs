@@ -152,7 +152,7 @@ namespace SpaceInvaders.Presentation.Game
                     startGame.PlayerGame.Lives--;
                 }
 
-                ValidateGameOver(startGame);
+                startGame.ValidateGameOver();
                 return true;
             }
             return false;
@@ -174,8 +174,8 @@ namespace SpaceInvaders.Presentation.Game
                     startGame.ViewModelGame.UpdateLife(startGame.PlayerGame.Lives);
                     enemy.RemoveEnemy(_canvas);
                     enemy.IsRemoved = true;
-                    
-                    ValidateGameOver(startGame);
+
+                    startGame.ValidateGameOver();
                     return true;
                 }
             
@@ -207,15 +207,6 @@ namespace SpaceInvaders.Presentation.Game
 
             }
             return false;
-        }
-        public void ValidateGameOver(StartGame startGame)
-        {
-            if (startGame.PlayerGame.Lives == 0)
-            {
-                startGame.GameOverSound();
-                startGame.Frame?.Navigate(typeof(MainPage), startGame.ViewModelGame.ScorePlayer.ScorePlayer);
-                
-            }
         }
     }
 }
