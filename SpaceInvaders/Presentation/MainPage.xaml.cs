@@ -1,14 +1,16 @@
 ﻿
 using Microsoft.UI;
 using SpaceInvaders.ViewModel;
+using System.Collections.ObjectModel;
 
 namespace SpaceInvaders.Presentation;
 
 public sealed partial class MainPage : Page
 {
     private DispatcherTimer _timer;
-    List<int> scores;
+    List<User> users;
     MainPageViewModel mainPageViewModel;
+
 
 
     public MainPage()
@@ -18,7 +20,7 @@ public sealed partial class MainPage : Page
         DataContext = mainPageViewModel;
         this.initializeStars();
         this.Loaded += MainPage_Loaded;
-        scores = new List<int>();
+        users = new List<User>();
 
 
 
@@ -92,19 +94,15 @@ public sealed partial class MainPage : Page
     {
         base.OnNavigatedTo(e);
 
-        if (e.Parameter is int score)
+        if (e.Parameter is User user)
         {
-            TextBlock textBlock = new TextBlock();
-            textBlock.Text = $"Score: {score}";
-            textBlock.HorizontalAlignment = HorizontalAlignment.Center;
-            textBlock.VerticalAlignment = VerticalAlignment.Center;
-            textBlock.Width = 200;
-            textBlock.Height = 60;
-            textBlock.FontSize = 24;
-            textBlock.Foreground = new SolidColorBrush(Colors.White);
-
-            MenuStackPanel.Children.Add( textBlock );
-            
+            users.Add(user);
+            Console.WriteLine(users.Count);
         }
+    }
+
+    private void SocoreClickBtn(object sender, RoutedEventArgs e)
+    {
+        Frame?.Navigate(typeof(ScorePage), users);
     }
 }

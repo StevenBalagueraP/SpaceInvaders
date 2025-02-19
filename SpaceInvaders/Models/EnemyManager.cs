@@ -239,9 +239,16 @@ public class EnemyManager
     {
         if (_timer.Interval.TotalMilliseconds > 20)
         {
-            _timer.Interval = TimeSpan.FromMilliseconds(_timer.Interval.TotalMilliseconds - 5);
+            _timer.Interval = TimeSpan.FromMilliseconds(_timer.Interval.TotalMilliseconds - 2);
         }
         
+    }
+    public void ResetTimers()
+    {
+        _timer.Stop();
+        resetBulletsTimer.Stop();
+        spawnBossTimer.Stop();
+        moveBooss.Stop();
     }
 }
 

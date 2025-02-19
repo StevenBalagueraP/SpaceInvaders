@@ -45,6 +45,16 @@
                     Background="{ThemeResource AccentBrush}"
                     Foreground="White"
                     Click="GoToSecond" />
+                <Button Content="Score"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Width="200"
+                        Height="60"
+                        FontSize="24"
+                        Foreground="White"
+                        Background="{ThemeResource AccentBrush}"
+                        Click="SocoreClickBtn"
+                        />
 
                 <Button Content="Settings"
                     HorizontalAlignment="Center"

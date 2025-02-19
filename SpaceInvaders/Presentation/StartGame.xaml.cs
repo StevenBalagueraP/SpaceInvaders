@@ -2,7 +2,7 @@
 using SpaceInvaders.Presentation.Game;
 using SpaceInvaders.ViewModel;
 using Windows.System;
-
+using User = SpaceInvaders.Models.User;
 
 namespace SpaceInvaders.Presentation
 {
@@ -104,6 +104,21 @@ namespace SpaceInvaders.Presentation
             else if (e.Key == VirtualKey.Right)
             {
                 _player.MoveRight();
+            }
+        }
+
+        private void SaveScore_Click(object sender, RoutedEventArgs e)
+        {
+            User user = new User(PlayerNameInput.Text, ViewModelGame.ScorePlayer.ScorePlayer);
+            Console.WriteLine(user.Score);
+            Frame?.Navigate(typeof(MainPage), user);
+        }
+        public void ValidateGameOver()
+        {
+            if (PlayerGame.Lives == 0)
+            {
+                GameOverPanel.Visibility = Visibility.Visible;
+                _enemyManager.ResetTimers();
             }
         }
     }

@@ -97,6 +97,7 @@ public partial class App : Application
         views.Register(
             new ViewMap(ViewModel: typeof(ShellModel)),
             new ViewMap<MainPage, MainPageViewModel>(),
+            new ViewMap<ScorePage, MainPageViewModel>(),
             new DataViewMap<StartGame, GameViewModel, Entity>()
         );
 
@@ -106,6 +107,7 @@ public partial class App : Application
                 [
                     new ("Main", View: views.FindByViewModel<MainPageViewModel>(), IsDefault:true),
                     new ("Second", View: views.FindByViewModel<GameViewModel>()),
+                    new ("Score", View: views.FindByViewModel<MainPageViewModel>())
                 ]
             )
         );

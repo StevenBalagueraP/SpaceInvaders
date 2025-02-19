@@ -55,5 +55,10 @@
   <ItemGroup>
     <Folder Include="Assets\Sounds\" />
   </ItemGroup>
+  <ItemGroup>
+    <Page Update="Presentation\ScorePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
 
 </Project>
