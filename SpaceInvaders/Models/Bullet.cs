@@ -189,29 +189,19 @@ namespace SpaceInvaders.Presentation.Game
         }
         private bool CheckBlockCollitions(StartGame startGame)
         {
-            foreach (ProtectionBlock protectionBlock in startGame.ProtectionBlockManagerGame.ProtectionBlocks)
+            var blocks = startGame.ProtectionBlockManagerGame.ProtectionBlocks;
+
+            for (int i = blocks.Count - 1; i >= 0; i--)
             {
-                bool intervalCollitionX = protectionBlock.XPosition >= XPosition - 80 && protectionBlock.XPosition <= XPosition + 5;
-                bool intervalCollitionY = protectionBlock.YPosition >= YPosition - 65 && protectionBlock.YPosition <= YPosition + 16;
+                bool isCorrect = blocks[i].RemovePixel(_canvas, XPosition, YPosition);
 
-                if (intervalCollitionX && intervalCollitionY)
+                if (isCorrect)
                 {
-                    if (protectionBlock.Healt < 2)
-                    {
-                        protectionBlock.RemoveBlock(_canvas);
-                        startGame.ProtectionBlockManagerGame.ProtectionBlocks.Remove(protectionBlock);
-                        return true;
-                    }
-                    else
-                    {
-                        protectionBlock.Healt -= 1;
-                        return true;
-
-                    } 
+                    return true;
                 }
-
             }
             return false;
         }
+
     }
 }

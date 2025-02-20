@@ -37,7 +37,6 @@ public class ProtectionBlockManager
                 _protectionBlocks.Add(protectionBlock);
                 protectionBlock.AddBlock(_canvas);
                 initialX += 250;
-
             }
         }
     }
