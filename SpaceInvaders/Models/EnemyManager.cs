@@ -36,6 +36,10 @@ public class EnemyManager
         isFinishedRound = false;
 
     }
+    /// <summary>
+    /// Generates a number of bullets that will be launched by the enemy every certain time
+    /// </summary>
+    /// <param name="startGame">is the view class</param>
     private void ResetBulletTimer(StartGame startGame)
     {
         resetBulletsTimer.Interval = TimeSpan.FromSeconds(3);
@@ -46,13 +50,19 @@ public class EnemyManager
         };
         resetBulletsTimer.Start();
     }
+
+    /// <summary>
+    /// Spawns a boss after 1 minute
+    /// </summary>
+    /// <param name="startGame">is the view class</param>
     private void SpawnBoossTimer(StartGame startGame)
     {
         spawnBossTimer.Interval = TimeSpan.FromMinutes(1);
         spawnBossTimer.Tick += (sender, e) => SpawnBoss(startGame);
         spawnBossTimer.Start();
     }
-    public void SpawnBoss(StartGame startGame)
+
+    private void SpawnBoss(StartGame startGame)
     {
         int count = _random.Next(0, 2);
         Console.WriteLine(count);
@@ -68,7 +78,6 @@ public class EnemyManager
         {
             if (boossEnemy.Update(value, _canvas))
             {
-                // correjir. funciona pero debemos eliminarlo. tengo sueño :v
                 _enemies.Remove(boossEnemy);
 
                 boossEnemy.RemoveEnemy(_canvas);
@@ -87,6 +96,10 @@ public class EnemyManager
         
 
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="startGame">is the view class</param>
     public void Move(StartGame startGame)
     {
         foreach (Enemy enemy in _enemies)
@@ -126,7 +139,7 @@ public class EnemyManager
         }
 
     }
-    public void GenerateBullet(StartGame startGame)
+    private void GenerateBullet(StartGame startGame)
     {
         for (int i = 0; i < numberOfBullets; i++)
         {
@@ -166,6 +179,10 @@ public class EnemyManager
             }   
         }
     }
+    /// <summary>
+    /// reset the round when all the enemies was died
+    /// </summary>
+    /// <param name="startGame">is the view</param>
     public void ResetEnemies(StartGame startGame)
     {
         if (Enemies.Count == 0)
@@ -176,6 +193,11 @@ public class EnemyManager
         }
 
     }
+    /// <summary>
+    /// generates a new round at the start of the game
+    /// </summary>
+    /// <param name="rows"> number of rows</param>
+    /// <param name="columns">number of columns</param>
     public void GenerateNewRound(int rows, int columns)
     {
         int canvasWidth = (int)_canvas.ActualWidth;
@@ -235,6 +257,9 @@ public class EnemyManager
             }
         }
     }
+    /// <summary>
+    /// Validates the speed when enemies touch the edges
+    /// </summary>
     public void validateEnemySpeed()
     {
         if (_timer.Interval.TotalMilliseconds > 20)
@@ -243,6 +268,9 @@ public class EnemyManager
         }
         
     }
+    /// <summary>
+    /// reset all the timers for enemies
+    /// </summary>
     public void ResetTimers()
     {
         _timer.Stop();

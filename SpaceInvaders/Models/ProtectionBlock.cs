@@ -35,11 +35,20 @@ public class ProtectionBlock
         get { return _isDestroyed; }
         set { _isDestroyed = value; }
     }
+
+    /// <summary>
+    /// removes a block when enemy or player collides
+    /// </summary>
+    /// <param name="_canvas"> canvas param passes for StartGame</param>
     public void RemoveBlock(Canvas _canvas)
     {
         _canvas.Children.Remove(_protectionImage);
         _protectionImage = null;
     }
+    /// <summary>
+    /// Add a Default block
+    /// </summary>
+    /// <param name="_canvas">canvas param passes for StartGame</param</param>
     public void AddBlock(Canvas _canvas)
     {
         _protectionImage = new Image

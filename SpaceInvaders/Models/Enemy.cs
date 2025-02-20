@@ -60,11 +60,22 @@ public abstract class Enemy
         get { return enemyImage; }
         set { enemyImage = value; }
     }
+    /// <summary>
+    /// Remove enemy for canvas
+    /// </summary>
+    /// <param name="canvas">is the parameter passed on StartGame</param>
     public void RemoveEnemy(Canvas canvas)
     {
         canvas.Children.Remove(enemyImage);
         enemyImage = null;
     }
+
+    /// <summary>
+    /// add enemy for canvas
+    /// </summary>
+    /// <param name="enemyWidth">width for enemy</param>
+    /// <param name="enemyHeight">heigth for enemy</param>
+    /// <param name="canvas">is the parameter passed on StartGame</param>
     public void AddEnemy(int enemyWidth, int enemyHeight, Canvas canvas)
     {
         enemyImage = new Image
@@ -79,6 +90,13 @@ public abstract class Enemy
 
         canvas.Children.Add(enemyImage);
     }
+
+    /// <summary>
+    /// check the edges and move the enemy
+    /// </summary>
+    /// <param name="value"> value can be positive or negative</param>
+    /// <param name="canvas">is the parameter passed on StartGame</param>
+    /// <returns></returns>
     public bool Update(string value, Canvas canvas)
     {
         if (value == "positive")

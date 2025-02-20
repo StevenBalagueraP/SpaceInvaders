@@ -20,6 +20,7 @@
                 <Button x:Name="BtnShowAll" Content="Show All" Click="BtnShowAll_Click" Width="140" Margin="5"/>
                 <Button x:Name="BtnShowBest" Content="Highest Scores" Click="BtnShowBest_Click_1" Width="160" Margin="5"/>
                 <Button x:Name="GoToMain" Content="Go To Main" Click="GoToMain_Click" Width="160" Margin="5"/>
+                <Button x:Name="ExportScores" Content="Export Score" Click="ExportScores_Click" Width="160" Margin="5"/>
             </StackPanel>
 
             <TextBlock Text="Scores:"
@@ -36,9 +37,9 @@
                           VerticalAlignment="Center">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                                <TextBlock Text="{Binding Name}" Width="200" FontSize="20"/>
-                                <TextBlock Text="{Binding Score}" Width="100" FontSize="20"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Text="{Binding Name}" Width="200" FontSize="20" Foreground="White"/>
+                                <TextBlock Text="{Binding Score}" Width="100" FontSize="20" Foreground="White"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

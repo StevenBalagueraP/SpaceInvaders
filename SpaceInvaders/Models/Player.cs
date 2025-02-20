@@ -45,6 +45,9 @@ public class Player
         set { _lives = value; }
     }
 
+    /// <summary>
+    /// Generate the image for a player
+    /// </summary>
     public void LoadImage()
     {
 
@@ -62,6 +65,10 @@ public class Player
 
         _canvas.Children.Add(playerImage);
     }
+
+    /// <summary>
+    /// Reset the player position when the player collides with a enemy bullet
+    /// </summary>
     public void resetPlayer()
     {
         _x = 200;
@@ -70,6 +77,7 @@ public class Player
         Canvas.SetTop(playerImage, _y);
 
     }
+
 
     private void CenterPlayer()
     {
@@ -81,6 +89,9 @@ public class Player
         _x = 200;
         _y = 600 - playerHeight;
     }
+    /// <summary>
+    /// the player moves to the left when he presses the left key
+    /// </summary>
     public void MoveLeft()
     {
         if (isAlive)
@@ -94,6 +105,9 @@ public class Player
         }
         
     }
+    /// <summary>
+    /// the player moves to the right when he presses the right key
+    /// </summary>
     public void MoveRight()
     {
         if (isAlive)
@@ -109,6 +123,11 @@ public class Player
         }
         
     }
+
+    /// <summary>
+    /// remove player to the screen when its lives arrives to 0
+    /// </summary>
+    /// <param name="canvas"> param passed on StartGame</param>
     public void RemovePlayer(Canvas canvas)
     {
         if (playerImage != null)
@@ -120,6 +139,10 @@ public class Player
         }
     }
 
+    /// <summary>
+    /// Increase the playerLives each 1000 score
+    /// </summary>
+    /// <param name="score">score passed to the view</param>
     public void IncreaseLives(int score)
     {
         if (score / 1000 > _lastMilestone && Lives < 6)
