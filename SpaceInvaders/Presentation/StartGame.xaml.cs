@@ -78,8 +78,7 @@ namespace SpaceInvaders.Presentation
             GameOver.MediaPlayer.Volume = 1.0;
             GameOver.MediaPlayer.Play();
         }
-
-        public void GenerateObjects()
+        private void GenerateObjects()
         {
             _protectionBlockManager.GenerateBlock(4);
             _enemyManager.GenerateNewRound(5, 15);
@@ -109,10 +108,22 @@ namespace SpaceInvaders.Presentation
 
         private void SaveScore_Click(object sender, RoutedEventArgs e)
         {
-            User user = new User(PlayerNameInput.Text, ViewModelGame.ScorePlayer.ScorePlayer);
+            User user;
+            if (PlayerNameInput.Text.Empty())
+            {
+                user = new User("Unknown", ViewModelGame.ScorePlayer.ScorePlayer);
+            }
+            else
+            {
+                user = new User(PlayerNameInput.Text, ViewModelGame.ScorePlayer.ScorePlayer);
+            }
             Console.WriteLine(user.Score);
             Frame?.Navigate(typeof(MainPage), user);
         }
+
+        /// <summary>
+        /// Validate game over when the player has no lives
+        /// </summary>
         public void ValidateGameOver()
         {
             if (PlayerGame.Lives == 0)

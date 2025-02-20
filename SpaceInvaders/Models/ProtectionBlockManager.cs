@@ -19,6 +19,11 @@ public class ProtectionBlockManager
         _protectionBlocks = new List<ProtectionBlock>();
         _isFinishedRound = false;
     }
+
+    /// <summary>
+    /// generates the blocks that will be used as defense
+    /// </summary>
+    /// <param name="numberBlocks"> number of blocks puted on the screen</param>
     public void GenerateBlock(int numberBlocks)
     {
         int initialX = -250;

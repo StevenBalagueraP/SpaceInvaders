@@ -40,7 +40,9 @@ namespace SpaceInvaders.Presentation.Game
             set { _isActive = value; }
         }
         public string ImagePath => _imagePath;
-
+        /// <summary>
+        /// Generate the image for bullet
+        /// </summary>
         public void GenerateImage()
         {
             if (!IsActive)
@@ -62,7 +64,10 @@ namespace SpaceInvaders.Presentation.Game
                 _canvas.Children.Add(bulletImage);
             }
         }
-
+        /// <summary>
+        /// Move the bullet and validate collisions between different objects
+        /// </summary>
+        /// <param name="startGame">is the view</param>
         public void Move(StartGame startGame)
         {
             GenerateImage();
@@ -133,7 +138,7 @@ namespace SpaceInvaders.Presentation.Game
         }
 
 
-        public bool CheckPlayerCollition(StartGame startGame)
+        private bool CheckPlayerCollition(StartGame startGame)
         {
             bool intervalCollitionX = startGame.PlayerGame.X >= XPosition - 20 && startGame.PlayerGame.X <= XPosition + 20;
             bool intervalCollitionY = startGame.PlayerGame.Y >= YPosition - 20 && startGame.PlayerGame.Y <= YPosition + 20;
@@ -158,7 +163,7 @@ namespace SpaceInvaders.Presentation.Game
             return false;
         }
 
-        public bool CheckEnemyCollisions(StartGame startGame)
+        private bool CheckEnemyCollisions(StartGame startGame)
         {
             foreach (Enemy enemy in startGame.EnemyManagerGame.Enemies)
             {
@@ -182,7 +187,7 @@ namespace SpaceInvaders.Presentation.Game
             }
             return false;
         }
-        public bool CheckBlockCollitions(StartGame startGame)
+        private bool CheckBlockCollitions(StartGame startGame)
         {
             foreach (ProtectionBlock protectionBlock in startGame.ProtectionBlockManagerGame.ProtectionBlocks)
             {

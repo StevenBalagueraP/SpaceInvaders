@@ -28,6 +28,10 @@ namespace SpaceInvaders.Models
             _canvas = canvas;
             _random = new Random();
         }
+
+        /// <summary>
+        /// add the star to the canvas
+        /// </summary>
         public void AddToCanvas()
         {
             _startImage = new Image
@@ -48,7 +52,7 @@ namespace SpaceInvaders.Models
             _timer.Start();
 
         }
-        public void OnTimerTick(object sender, object b)
+        private void OnTimerTick(object sender, object b)
         {
             double currentTop = Canvas.GetTop(_startImage);
             Canvas.SetTop(_startImage, currentTop + 5);
@@ -58,6 +62,10 @@ namespace SpaceInvaders.Models
                 ResetPosition();
             }
         }
+
+        /// <summary>
+        /// Resets the position of the star and dynamically places it on the x-axis
+        /// </summary>
         public void ResetPosition()
         {
             int maxX = Math.Max(0, (int)_canvas.ActualWidth - 100);

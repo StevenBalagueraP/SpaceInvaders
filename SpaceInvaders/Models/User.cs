@@ -18,5 +18,6 @@ public class User
     public int Score
     {
         get { return score; }
+        set { score = value; }
     }
 }

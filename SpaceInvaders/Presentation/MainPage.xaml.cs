@@ -1,8 +1,4 @@
-﻿
-using Microsoft.UI;
-using SpaceInvaders.ViewModel;
-using System.Collections.ObjectModel;
-
+﻿using SpaceInvaders.ViewModel;
 namespace SpaceInvaders.Presentation;
 
 public sealed partial class MainPage : Page
@@ -10,8 +6,6 @@ public sealed partial class MainPage : Page
     private DispatcherTimer _timer;
     List<User> users;
     MainPageViewModel mainPageViewModel;
-
-
 
     public MainPage()
     {
@@ -21,9 +15,6 @@ public sealed partial class MainPage : Page
         this.initializeStars();
         this.Loaded += MainPage_Loaded;
         users = new List<User>();
-
-
-
     }
     private void MainPage_Loaded(object sender, RoutedEventArgs e)
     {
@@ -90,6 +81,11 @@ public sealed partial class MainPage : Page
         shootingStar5.AddToCanvas();
         shootingStar6.AddToCanvas();
     }
+
+    /// <summary>
+    /// receives user information and saves it in a list
+    /// </summary>
+    /// <param name="e">User Info</param>
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
