@@ -1,4 +1,5 @@
 using SpaceInvaders.ViewModel;
+using SpaceInvaders.Presentation;
 using Uno.Resizetizer;
 
 namespace SpaceInvaders;
@@ -98,6 +99,7 @@ public partial class App : Application
             new ViewMap(ViewModel: typeof(ShellModel)),
             new ViewMap<MainPage, MainPageViewModel>(),
             new ViewMap<ScorePage, MainPageViewModel>(),
+            new ViewMap<AboutPage, MainPageViewModel>(),
             new DataViewMap<StartGame, GameViewModel, Entity>()
         );
 
@@ -107,7 +109,8 @@ public partial class App : Application
                 [
                     new ("Main", View: views.FindByViewModel<MainPageViewModel>(), IsDefault:true),
                     new ("Second", View: views.FindByViewModel<GameViewModel>()),
-                    new ("Score", View: views.FindByViewModel<MainPageViewModel>())
+                    new ("Score", View: views.FindByViewModel<MainPageViewModel>()),
+                    new ("About", View: views.FindByViewModel<MainPageViewModel>())
                 ]
             )
         );

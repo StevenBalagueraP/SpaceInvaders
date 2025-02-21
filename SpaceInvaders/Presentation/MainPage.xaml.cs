@@ -101,4 +101,9 @@ public sealed partial class MainPage : Page
     {
         Frame?.Navigate(typeof(ScorePage), users);
     }
+    private void AboutClickBtn(object sender, RoutedEventArgs e)
+    {
+        Frame?.Navigate(typeof(AboutPage));
+    }
+    
 }

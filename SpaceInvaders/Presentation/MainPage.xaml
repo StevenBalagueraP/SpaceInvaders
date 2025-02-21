@@ -56,7 +56,7 @@
                         Click="SocoreClickBtn"
                         />
 
-                <Button Content="Settings"
+                <Button Content="About"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Width="200"
@@ -64,7 +64,8 @@
                     FontSize="24"
                     Background="{ThemeResource AccentBrush}"
                     Foreground="White"
-                    Command="{Binding OnSettingsButtonClicked}" />
+                    Command="{Binding OnSettingsButtonClicked}" 
+                    Click="AboutClickBtn"/>
 
             </StackPanel>
         </Grid>
