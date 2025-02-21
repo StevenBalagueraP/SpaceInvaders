@@ -1,4 +1,4 @@
-namespace SpaceInvaders.Presentation;
+namespace SpaceInvaders.Models;
 
 public class ShellModel
 {

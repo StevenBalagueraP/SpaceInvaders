@@ -48,6 +48,9 @@
     </UnoFeatures>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Update="Presentation\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Presentation\StartGame.xaml.cs">
       <DependentUpon>StartGame.xaml</DependentUpon>
     </Compile>
@@ -60,6 +63,11 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Presentation\ScorePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Presentation\AboutPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
