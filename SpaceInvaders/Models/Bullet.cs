@@ -40,6 +40,15 @@ namespace SpaceInvaders.Presentation.Game
             set { _isActive = value; }
         }
         public string ImagePath => _imagePath;
+
+        public void SetSpeed(int speed)
+        {
+            if (_timer.Interval.TotalMilliseconds > 5)
+            {
+                _timer.Interval = TimeSpan.FromMilliseconds(speed);
+            }
+           
+        }
         /// <summary>
         /// Generate the image for bullet
         /// </summary>
@@ -74,7 +83,7 @@ namespace SpaceInvaders.Presentation.Game
 
             if (IsActive)
             {
-                _timer.Interval = TimeSpan.FromMilliseconds(10);
+                _timer.Interval = TimeSpan.FromMilliseconds(30);
                 _timer.Tick += (sender, e) =>
                 {
                     
@@ -102,7 +111,7 @@ namespace SpaceInvaders.Presentation.Game
                         }
                         else
                         {
-                            YPosition -= 5;
+                            YPosition -= 10;
                             Canvas.SetTop(bulletImage, YPosition);
                         }
                     }
@@ -126,7 +135,7 @@ namespace SpaceInvaders.Presentation.Game
                         }
                         else
                         {
-                            YPosition += 5;
+                            YPosition += 10;
                         }
                     }
                         
@@ -156,8 +165,10 @@ namespace SpaceInvaders.Presentation.Game
                     startGame.PlayerGame.IsAlive = false;
                     startGame.PlayerGame.Lives--;
                 }
-
-                startGame.ValidateGameOver();
+                if (startGame.PlayerGame.Lives <= 0)
+                {
+                    startGame.GameOverPlay();
+                }
                 return true;
             }
             return false;
@@ -180,7 +191,10 @@ namespace SpaceInvaders.Presentation.Game
                     enemy.RemoveEnemy(_canvas);
                     enemy.IsRemoved = true;
 
-                    startGame.ValidateGameOver();
+                    if (startGame.PlayerGame.Lives <= 0)
+                    {
+                        startGame.GameOverPlay();
+                    }
                     return true;
                 }
             
