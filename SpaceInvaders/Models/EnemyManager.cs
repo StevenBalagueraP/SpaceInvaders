@@ -14,7 +14,9 @@ public class EnemyManager
     private string value = "positive";
     private int numberOfBullets;
     private bool isFinishedRound;
-
+    private int incrementablePosition;
+    private int round;
+    private int bulletSpeed;
     public List<Enemy> Enemies
     {
         get { return _enemies; }
@@ -34,6 +36,9 @@ public class EnemyManager
         ResetBulletTimer(startGame);
         SpawnBoossTimer(startGame);
         isFinishedRound = false;
+        incrementablePosition = 0;
+        bulletSpeed = 0;
+        round = 1;
 
     }
     /// <summary>
@@ -134,6 +139,10 @@ public class EnemyManager
                     validateEnemySpeed();
                     Console.WriteLine(_timer.Interval.TotalMilliseconds);
                 }
+                if (enemy.YPosition == 500)
+                {
+                    startGame.GameOverPlay();
+                }
             }
             
         }
@@ -171,11 +180,6 @@ public class EnemyManager
                     Bullet enemyBullet = new Bullet(_enemies[randomShootingEnemy].XPosition - 5, _enemies[randomShootingEnemy].YPosition, "ms-appx:///Assets/Images/bulletImage.png", _canvas, false);
                     enemyBullet.Move(startGame);
                 }
-                else
-                {
-
-                    Console.WriteLine("papu eso no");
-                }
             }   
         }
     }
@@ -188,7 +192,15 @@ public class EnemyManager
         if (Enemies.Count == 0)
         {
             isFinishedRound = false;
-            GenerateNewRound(5, 15);
+            if (round >= 5)
+            {
+               
+            }
+            else
+            {
+               incrementablePosition += 5;
+            }
+            GenerateNewRound(5, 15, incrementablePosition);
             startGame.ResetEnemiesSound();
         }
 
@@ -198,7 +210,7 @@ public class EnemyManager
     /// </summary>
     /// <param name="rows"> number of rows</param>
     /// <param name="columns">number of columns</param>
-    public void GenerateNewRound(int rows, int columns)
+    public void GenerateNewRound(int rows, int columns, int incrementableY)
     {
         int canvasWidth = (int)_canvas.ActualWidth;
         int canvasHeight = (int)_canvas.ActualHeight;
@@ -226,7 +238,7 @@ public class EnemyManager
                     {
                         enemy = new ShootingEnemy(
                             initialX + j * (enemyWidth + spacing),
-                            initialY + i * (enemyHeight + spacing),
+                            (initialY + i * (enemyHeight + spacing)) + incrementableY,
                             speed,
                             "ms-appx:///Assets/Images/shootingEnemy.png",
                             40);
@@ -236,7 +248,7 @@ public class EnemyManager
                     {
                         enemy = new AdvancedEnemy(
                             initialX + j * (enemyWidth + spacing),
-                            initialY + i * (enemyHeight + spacing),
+                            (initialY + i * (enemyHeight + spacing)) + incrementableY,
                             speed,
                             "ms-appx:///Assets/Images/advancedEnemy.png",
                             20);
@@ -245,7 +257,7 @@ public class EnemyManager
                     {
                         enemy = new NormalEnemy(
                             initialX + j * (enemyWidth + spacing),
-                            initialY + i * (enemyHeight + spacing),
+                            (initialY + i * (enemyHeight + spacing)) + incrementableY,
                             speed,
                             "ms-appx:///Assets/Images/normalEnemy.png",
                             10);

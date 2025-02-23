@@ -81,7 +81,7 @@ namespace SpaceInvaders.Presentation
         private void GenerateObjects()
         {
             _protectionBlockManager.GenerateBlock(4);
-            _enemyManager.GenerateNewRound(5, 15);
+            _enemyManager.GenerateNewRound(5, 15, 0);
             _player.LoadImage();
         }
 
@@ -122,15 +122,12 @@ namespace SpaceInvaders.Presentation
         }
 
         /// <summary>
-        /// Validate game over when the player has no lives
+        /// Validate gameOver
         /// </summary>
-        public void ValidateGameOver()
+        public void GameOverPlay()
         {
-            if (PlayerGame.Lives == 0)
-            {
-                GameOverPanel.Visibility = Visibility.Visible;
-                _enemyManager.ResetTimers();
-            }
+            GameOverPanel.Visibility = Visibility.Visible;
+            _enemyManager.ResetTimers();
         }
     }
 }
