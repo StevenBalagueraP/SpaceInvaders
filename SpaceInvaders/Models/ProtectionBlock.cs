@@ -19,13 +19,17 @@ public class ProtectionBlock
         _yPosition = yPosition;
         _imagePath = imagePath;
         _healt = 5;
-        pixelSize = 20;
+        pixelSize = 10;
         _isDestroyed = false;
         matriz = new int[,]
        {
-            { 1, 1, 1, 1 },
-            { 1, 1, 1, 1 },
-            { 1, 0, 0, 1 }
+            { 0, 0, 1, 1, 1, 1, 1, 1, 0, 0 },
+            { 0, 1, 1, 1, 1, 1, 1, 1, 1, 0 },
+            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+            { 1, 1, 1, 1, 0, 0, 1, 1, 1, 1 },
+            { 1, 1, 1, 0, 0, 0, 0, 1, 1, 1 },
+            { 1, 1, 1, 0, 0, 0, 0, 1, 1, 1 }
        };
 
     }
@@ -109,8 +113,7 @@ public class ProtectionBlock
                     {
                         Width = pixelSize,
                         Height = pixelSize,
-                        Fill = new SolidColorBrush(Colors.Green),
-                        Stroke = new SolidColorBrush(Colors.Black),
+                        Fill = new SolidColorBrush(Colors.DarkGreen),
                         StrokeThickness = 1
                     };
 

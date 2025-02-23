@@ -41,11 +41,11 @@ namespace SpaceInvaders.Presentation.Game
         }
         public string ImagePath => _imagePath;
 
-        public void IncrementSpeed()
+        public void SetSpeed(int speed)
         {
             if (_timer.Interval.TotalMilliseconds > 5)
             {
-                _timer.Interval = TimeSpan.FromMilliseconds(_timer.Interval.TotalMilliseconds - 5);
+                _timer.Interval = TimeSpan.FromMilliseconds(speed);
             }
            
         }

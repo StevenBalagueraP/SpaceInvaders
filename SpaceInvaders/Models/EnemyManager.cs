@@ -37,7 +37,7 @@ public class EnemyManager
         SpawnBoossTimer(startGame);
         isFinishedRound = false;
         incrementablePosition = 0;
-        bulletSpeed = 0;
+        bulletSpeed = 30;
         round = 1;
 
     }
@@ -158,9 +158,9 @@ public class EnemyManager
                 if (_enemies[randomShootingEnemy] is ShootingEnemy)
                 {
                     Console.WriteLine(_enemies.Count());
-                    Console.WriteLine($"random; {randomShootingEnemy}");
-
                     Bullet enemyBullet = new Bullet(_enemies[randomShootingEnemy].XPosition - 5, _enemies[randomShootingEnemy].YPosition, "ms-appx:///Assets/Images/bulletImage.png", _canvas, false);
+                    enemyBullet.SetSpeed(bulletSpeed);
+                    Console.WriteLine($"si entra aqui {bulletSpeed}");
                     enemyBullet.Move(startGame);
                 }
                 else
@@ -175,9 +175,9 @@ public class EnemyManager
                 if (_enemies[randomShootingEnemy] is ShootingEnemy)
                 {
                     Console.WriteLine(_enemies.Count());
-                    Console.WriteLine($"random; {randomShootingEnemy}");
-
                     Bullet enemyBullet = new Bullet(_enemies[randomShootingEnemy].XPosition - 5, _enemies[randomShootingEnemy].YPosition, "ms-appx:///Assets/Images/bulletImage.png", _canvas, false);
+                    enemyBullet.SetSpeed(bulletSpeed);
+                    Console.WriteLine($"si entra aqui {bulletSpeed}");
                     enemyBullet.Move(startGame);
                 }
             }   
@@ -189,12 +189,13 @@ public class EnemyManager
     /// <param name="startGame">is the view</param>
     public void ResetEnemies(StartGame startGame)
     {
+        round++;
         if (Enemies.Count == 0)
         {
             isFinishedRound = false;
-            if (round >= 5)
+            if (round >= 2)
             {
-               
+                bulletSpeed -= 5;
             }
             else
             {
