@@ -80,6 +80,7 @@ namespace SpaceInvaders.Presentation.Game
         public void Move(StartGame startGame)
         {
             GenerateImage();
+            startGame.ShootingSoundMedia();
 
             if (IsActive)
             {
@@ -130,6 +131,7 @@ namespace SpaceInvaders.Presentation.Game
                             _canvas.Children.Remove(bulletImage);
 
                             startGame.ViewModelGame.UpdateLife(startGame.PlayerGame.Lives);
+                            startGame.PlayerDamageSound();
                             IsActive = false;
 
                         }

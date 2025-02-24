@@ -13,6 +13,12 @@ namespace SpaceInvaders.Presentation
         private Player _player;
         private ProtectionBlockManager _protectionBlockManager;
         private Bullet _currentBullet;
+        private SoundPlayer soundPlayer = new SoundPlayer();
+        private SoundPlayer enemyCollided = new SoundPlayer();
+        private SoundPlayer bulletSound = new SoundPlayer();
+        private SoundPlayer protectionBlockSound = new SoundPlayer();
+        private SoundPlayer resetEnemiesSound = new SoundPlayer();
+        private SoundPlayer gameOverSound = new SoundPlayer();
 
         public Player PlayerGame
         {
@@ -50,33 +56,31 @@ namespace SpaceInvaders.Presentation
         }
         private void StartGame_Loaded(object sender, RoutedEventArgs e)
         {
-            StartGameSound.MediaPlayer.Volume = 1.0;
-            StartGameSound.MediaPlayer.Play();
+            soundPlayer.PlaySound("Assets/Sounds/StartGameSound.mp3", true);
         }
         public void DamageEnemiesSound()
         {
-            DamageEnemies.MediaPlayer.Volume = 1.0;
-            DamageEnemies.MediaPlayer.Play();
+            enemyCollided.PlaySound("Assets/Sounds/DamageEnemies.mp3");
         }
         public void ShootingSoundMedia()
         {
-            ShootingSound.MediaPlayer.Volume = 1.0;
-            ShootingSound.MediaPlayer.Play();
+            bulletSound.PlaySound("Assets/Sounds/ShootingSound.wav");
         }
         public void ProtectionBlockSound()
         {
-            ProtectionBlockDamage.MediaPlayer.Volume = 1.0;
-            ProtectionBlockDamage.MediaPlayer.Play();
+            protectionBlockSound.PlaySound("Assets/Sounds/ProtectionBlockDamage.mp3");   
         }
         public void ResetEnemiesSound()
         {
-            ResetEnemies.MediaPlayer.Volume = 1.0;
-            ResetEnemies.MediaPlayer.Play();
+            resetEnemiesSound.PlaySound("Assets/Sounds/ResetEnemies.mp3");
         }
         public void GameOverSound()
         {
-            GameOver.MediaPlayer.Volume = 1.0;
-            GameOver.MediaPlayer.Play();
+            gameOverSound.PlaySound("Assets/Sounds/GameOverSound.mp3");
+        }
+        public void PlayerDamageSound()
+        {
+            gameOverSound.PlaySound("Assets/Sounds/PlayerDamage.mp3");
         }
         private void GenerateObjects()
         {
@@ -117,7 +121,6 @@ namespace SpaceInvaders.Presentation
             {
                 user = new User(PlayerNameInput.Text, ViewModelGame.ScorePlayer.ScorePlayer);
             }
-            Console.WriteLine(user.Score);
             Frame?.Navigate(typeof(MainPage), user);
         }
 
@@ -128,6 +131,8 @@ namespace SpaceInvaders.Presentation
         {
             GameOverPanel.Visibility = Visibility.Visible;
             _enemyManager.ResetTimers();
+            soundPlayer.StopSound();
+            GameOverSound();
         }
     }
 }

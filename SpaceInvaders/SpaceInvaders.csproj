@@ -59,6 +59,7 @@
     <Folder Include="Assets\Sounds\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="NAudio" />
     <PackageReference Include="Xamarin.Essentials" />
   </ItemGroup>
   <ItemGroup>
