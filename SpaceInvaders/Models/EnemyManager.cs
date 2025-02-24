@@ -277,7 +277,7 @@ public class EnemyManager
     {
         if (_timer.Interval.TotalMilliseconds > 0)
         {
-            _timer.Interval = TimeSpan.FromMilliseconds(_timer.Interval.TotalMilliseconds - 5);
+            _timer.Interval = TimeSpan.FromMilliseconds(_timer.Interval.TotalMilliseconds - 3);
         }
         
     }

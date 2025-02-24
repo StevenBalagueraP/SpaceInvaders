@@ -6,6 +6,7 @@ public sealed partial class MainPage : Page
     private DispatcherTimer _timer;
     List<User> users;
     MainPageViewModel mainPageViewModel;
+    private SoundPlayer soundPlayer = new SoundPlayer();
 
     public MainPage()
     {
@@ -18,14 +19,14 @@ public sealed partial class MainPage : Page
     }
     private void MainPage_Loaded(object sender, RoutedEventArgs e)
     {
-        MenuSound.MediaPlayer.Volume = 1.0;
-        MenuSound.MediaPlayer.Play();
+        soundPlayer.PlaySound("Assets/Sounds/MenuSound.mp3", true);
     }
 
 
     private void GoToSecond(object sender, RoutedEventArgs e)
     {
         Frame?.Navigate(typeof(StartGame));
+        soundPlayer.StopSound();
 
     }
     private void initializeStars()
