@@ -17,6 +17,7 @@ public class EnemyManager
     private int incrementablePosition;
     private int round;
     private int bulletSpeed;
+    private int enemySpeed;
     public List<Enemy> Enemies
     {
         get { return _enemies; }
@@ -118,7 +119,7 @@ public class EnemyManager
                     _timer.Stop();
                     foreach (Enemy enemy1 in _enemies)
                     {
-                        enemy1.YPosition += 10;
+                        enemy1.YPosition += 20;
                         Canvas.SetTop(enemy1.EnemyImage, enemy1.YPosition);
                     }
                     _timer.Start();
@@ -131,7 +132,7 @@ public class EnemyManager
                     _timer.Stop();
                     foreach (Enemy enemy1 in _enemies)
                     {
-                        enemy1.YPosition += 10;
+                        enemy1.YPosition += 25;
                         Canvas.SetTop(enemy1.EnemyImage, enemy1.YPosition);
                     }
                     _timer.Start();
@@ -139,7 +140,7 @@ public class EnemyManager
                     validateEnemySpeed();
                     Console.WriteLine(_timer.Interval.TotalMilliseconds);
                 }
-                if (enemy.YPosition == 500)
+                if (enemy.YPosition >= 500)
                 {
                     startGame.GameOverPlay();
                 }
@@ -189,18 +190,17 @@ public class EnemyManager
     /// <param name="startGame">is the view</param>
     public void ResetEnemies(StartGame startGame)
     {
-        round++;
         if (Enemies.Count == 0)
         {
+            ResetSpeed();
+            round++;
             isFinishedRound = false;
-            if (round >= 2)
+            enemySpeed += 5; 
+            if (round >= 5)
             {
                 bulletSpeed -= 5;
             }
-            else
-            {
-               incrementablePosition += 5;
-            }
+            incrementablePosition += 30;
             GenerateNewRound(5, 15, incrementablePosition);
             startGame.ResetEnemiesSound();
         }
@@ -275,9 +275,17 @@ public class EnemyManager
     /// </summary>
     public void validateEnemySpeed()
     {
-        if (_timer.Interval.TotalMilliseconds > 20)
+        if (_timer.Interval.TotalMilliseconds > 0)
         {
-            _timer.Interval = TimeSpan.FromMilliseconds(_timer.Interval.TotalMilliseconds - 2);
+            _timer.Interval = TimeSpan.FromMilliseconds(_timer.Interval.TotalMilliseconds - 5);
+        }
+        
+    }
+    public void ResetSpeed()
+    {
+        if ( _timer.Interval.TotalMilliseconds < 30)
+        {
+            _timer.Interval = TimeSpan.FromMilliseconds(30);
         }
         
     }
