@@ -202,7 +202,7 @@ public class EnemyManager
             }
             incrementablePosition += 30;
             GenerateNewRound(5, 15, incrementablePosition);
-            startGame.ResetEnemiesSound();
+            startGame.SoundManager.ResetEnemiesSound();
         }
 
     }
@@ -275,7 +275,7 @@ public class EnemyManager
     /// </summary>
     public void validateEnemySpeed()
     {
-        if (_timer.Interval.TotalMilliseconds > 0)
+        if (_timer.Interval.TotalMilliseconds > 3)
         {
             _timer.Interval = TimeSpan.FromMilliseconds(_timer.Interval.TotalMilliseconds - 3);
         }

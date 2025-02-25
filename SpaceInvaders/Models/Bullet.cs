@@ -80,7 +80,7 @@ namespace SpaceInvaders.Presentation.Game
         public void Move(StartGame startGame)
         {
             GenerateImage();
-            startGame.ShootingSoundMedia();
+            startGame.SoundManager.ShootingSoundMedia();
 
             if (IsActive)
             {
@@ -100,14 +100,14 @@ namespace SpaceInvaders.Presentation.Game
                         {
                             _timer.Stop();
                             _canvas.Children.Remove(bulletImage);
-                            startGame.DamageEnemiesSound();
+                            startGame.SoundManager.DamageEnemiesSound();
                             IsActive = false;
                         }
                         else if (CheckBlockCollitions(startGame))
                         {
                             _timer.Stop();
                             _canvas.Children.Remove(bulletImage);
-                            startGame.ProtectionBlockSound();
+                            startGame.SoundManager.ProtectionBlockSound();
                             IsActive = false;
                         }
                         else
@@ -122,7 +122,7 @@ namespace SpaceInvaders.Presentation.Game
                         {
                             _timer.Stop();
                             _canvas.Children.Remove(bulletImage);
-                            startGame.ProtectionBlockSound();
+                            startGame.SoundManager.ProtectionBlockSound();
                             IsActive = false;
                         }
                         else if (CheckPlayerCollition(startGame))
@@ -131,7 +131,7 @@ namespace SpaceInvaders.Presentation.Game
                             _canvas.Children.Remove(bulletImage);
 
                             startGame.ViewModelGame.UpdateLife(startGame.PlayerGame.Lives);
-                            startGame.PlayerDamageSound();
+                            
                             IsActive = false;
 
                         }
@@ -154,8 +154,10 @@ namespace SpaceInvaders.Presentation.Game
             bool intervalCollitionX = startGame.PlayerGame.X >= XPosition - 20 && startGame.PlayerGame.X <= XPosition + 20;
             bool intervalCollitionY = startGame.PlayerGame.Y >= YPosition - 20 && startGame.PlayerGame.Y <= YPosition + 20;
 
+
             if (intervalCollitionX && intervalCollitionY) 
             {
+                startGame.SoundManager.PlayerDamageSound();
                 if (startGame.PlayerGame.Lives > 1)
                 {
                    startGame.PlayerGame.Lives--;
@@ -169,6 +171,7 @@ namespace SpaceInvaders.Presentation.Game
                 }
                 if (startGame.PlayerGame.Lives <= 0)
                 {
+                    startGame.SoundManager.PausePlayerDamageSound();
                     startGame.GameOverPlay();
                 }
                 return true;
@@ -188,7 +191,7 @@ namespace SpaceInvaders.Presentation.Game
                     startGame.ViewModelGame.IncreaseScore(enemy.Points);
                     startGame.EnemyManagerGame.Enemies.Remove(enemy);
                     startGame.EnemyManagerGame.ResetEnemies(startGame);
-                    startGame.PlayerGame.IncreaseLives(startGame.ViewModelGame.ScorePlayer.ScorePlayer);
+                    startGame.PlayerGame.IncreaseLives(startGame, startGame.ViewModelGame.ScorePlayer.ScorePlayer);
                     startGame.ViewModelGame.UpdateLife(startGame.PlayerGame.Lives);
                     enemy.RemoveEnemy(_canvas);
                     enemy.IsRemoved = true;
