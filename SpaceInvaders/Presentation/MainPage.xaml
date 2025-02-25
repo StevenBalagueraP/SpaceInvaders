@@ -15,7 +15,6 @@
 
     <ScrollViewer>
         <Grid Background="{StaticResource BackgroundImage}" utu:SafeArea.Insets="VisibleBounds"  DataContext="{Binding}">
-
             <!-- Canvas For Stars -->
             <Canvas x:Name="MainCanvas">
 
@@ -66,7 +65,6 @@
                     Foreground="White"
                     Command="{Binding OnSettingsButtonClicked}" 
                     Click="AboutClickBtn"/>
-
             </StackPanel>
         </Grid>
     </ScrollViewer>
