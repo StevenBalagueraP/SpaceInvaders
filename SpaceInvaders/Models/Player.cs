@@ -17,7 +17,7 @@ public class Player
     {
         _imagePath = imagePath;
         _canvas = canvas;
-        CenterPlayer(); 
+        CenterPlayer();
         _lives = 3;
         isAlive = true;
         _lastMilestone = 0;
@@ -28,14 +28,14 @@ public class Player
         get { return isAlive; }
         set { isAlive = value; }
     }
-    public int X 
-    { 
+    public int X
+    {
         get { return _x; }
         set { _x = value; }
     }
-    public int Y 
+    public int Y
     {
-        get { return _y; } 
+        get { return _y; }
     }
     public string ImagePath { get { return _imagePath; } }
 
@@ -103,7 +103,7 @@ public class Player
             }
             LoadImage();
         }
-        
+
     }
     /// <summary>
     /// the player moves to the right when he presses the right key
@@ -121,7 +121,7 @@ public class Player
             }
             LoadImage();
         }
-        
+
     }
 
     /// <summary>
@@ -135,7 +135,7 @@ public class Player
             canvas.Children.Remove(playerImage);
             playerImage.Source = null;
             playerImage = null;
-            canvas.UpdateLayout(); 
+            canvas.UpdateLayout();
         }
     }
 
@@ -143,12 +143,13 @@ public class Player
     /// Increase the playerLives each 1000 score
     /// </summary>
     /// <param name="score">score passed to the view</param>
-    public void IncreaseLives(int score)
+    public void IncreaseLives(StartGame startGame, int score)
     {
         if (score / 1000 > _lastMilestone && Lives < 6)
         {
             _lives++;
-            _lastMilestone = score / 1000; 
+            _lastMilestone = score / 1000;
+            startGame.SoundManager.IncreaseLivesSound();
         }
     }
 }
